@@ -20,19 +20,25 @@ public class ModelOffresPro {
 	@ManyToOne
 	@JoinColumn(name = "id_type_contrat", nullable = false)
 	private ModelTypeContrat typeContrat;
+	private String libelleLong;
 	private String description;
 	private String fichierOffre;
+	@ManyToOne
+	@JoinColumn(name = "id_entreprise", nullable = false)
+	private ModelEntreprise entreprise;
 	
 	public ModelOffresPro() {
 		super();
 	}
 
-	public ModelOffresPro(Long idOffresPro, ModelTypeContrat typeContrat, String description, String fichierOffre) {
+	public ModelOffresPro(Long idOffresPro, ModelTypeContrat typeContrat,String libelleLong, String description, String fichierOffre, ModelEntreprise entreprise) {
 		super();
 		this.idOffresPro = idOffresPro;
 		this.typeContrat = typeContrat;
+		this.libelleLong = libelleLong;
 		this.description = description;
 		this.fichierOffre = fichierOffre;
+		this.entreprise = entreprise;
 	}
 
 	public Long getIdOffresPro() {
@@ -51,6 +57,14 @@ public class ModelOffresPro {
 		this.typeContrat = typeContrat;
 	}
 
+	public String getLibelleLong() {
+		return libelleLong;
+	}
+
+	public void setLibelleLong(String libelleLong) {
+		this.libelleLong = libelleLong;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -65,6 +79,14 @@ public class ModelOffresPro {
 
 	public void setFichierOffre(String fichierOffre) {
 		this.fichierOffre = fichierOffre;
+	}
+
+	public ModelEntreprise getEntreprise() {
+		return entreprise;
+	}
+
+	public void setEntreprise(ModelEntreprise entreprise) {
+		this.entreprise = entreprise;
 	}
 	
 }
