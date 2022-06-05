@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ge.model.ModelEtudiant;
+import ge.repository.RepositoryAdresse;
 import ge.repository.RepositoryEtudiant;
+import ge.repository.RepositoryModule;
+import ge.repository.RepositoryNotes;
 import ge.utils.ResponseHandler;
 
 @RestController
@@ -18,10 +21,20 @@ import ge.utils.ResponseHandler;
 public class ControllerEtudiant {
 
 	private final RepositoryEtudiant repository;
+	private final RepositoryAdresse repositoryAdresse;
+	private final RepositoryModule repositoryModule;
+	private final RepositoryNotes repositoryNotes;
 	ResponseHandler responseHandler = new ResponseHandler();
 
-	ControllerEtudiant(RepositoryEtudiant repository) {
+	ControllerEtudiant(
+			RepositoryEtudiant repository, 
+			RepositoryAdresse repositoryAdresse, 
+			RepositoryModule repositoryModule, 
+			RepositoryNotes repositoryNotes) {
 		this.repository = repository;
+		this.repositoryAdresse = repositoryAdresse;
+		this.repositoryModule = repositoryModule;
+		this.repositoryNotes = repositoryNotes;
 	}
 
 	@GetMapping("/allEtudiant")
@@ -45,7 +58,13 @@ public class ControllerEtudiant {
 	@GetMapping("/oneEtudiant/{id}")
 	ResponseEntity<Object> one(@PathVariable Long id) {
 		try {
-			return responseHandler.generateResponse(HttpStatus.OK, repository.findById(id));
+			Object[] res = new Object[4];
+			res[0] = repository.findById(id);
+			res[1] = repositoryAdresse.getAdresseByPersonne(repository.findById(id).get().getPersonne().getIdPersonne());
+			res[2] = repositoryModule.findModuleByNiveau(repository.findById(id).get().getNiveau().getIdNiveau());
+			res[3] = repositoryNotes.findNoteByEtudiant(repository.findById(id).get().getIdEtudiant());
+			
+			return responseHandler.generateResponse(HttpStatus.OK, res);
 		} catch (Exception e) {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}

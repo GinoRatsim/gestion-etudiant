@@ -19,8 +19,8 @@ public class ModelAcces {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_acces")
 	@SequenceGenerator(name = "generator_acces", sequenceName = "_seq_acces")
 	private Long idAcces;
-	private String code;
-	private String libelle;
+	private String codeAcces;
+	private String libelleAcces;
 
 	@OneToMany(mappedBy = "accesModel", cascade = CascadeType.REMOVE)
 	private Set<ModelLogin> loginModel;
@@ -29,11 +29,11 @@ public class ModelAcces {
 		super();
 	}
 
-	public ModelAcces(Long idAcces, String code, String libelle) {
+	public ModelAcces(Long idAcces, String codeAcces, String libelleAcces) {
 		super();
 		this.idAcces = idAcces;
-		this.code = code;
-		this.libelle = libelle;
+		this.codeAcces = codeAcces;
+		this.libelleAcces = libelleAcces;
 	}
 
 	public Long getIdAcces() {
@@ -44,20 +44,20 @@ public class ModelAcces {
 		this.idAcces = idAcces;
 	}
 
-	public String getCode() {
-		return code;
+	public String getCodeAcces() {
+		return codeAcces;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setCodeAcces(String codeAcces) {
+		this.codeAcces = codeAcces;
 	}
 
-	public String getLibelle() {
-		return libelle;
+	public String getLibelleAcces() {
+		return libelleAcces;
 	}
 
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setLibelleAcces(String libelleAcces) {
+		this.libelleAcces = libelleAcces;
 	}
 		
 }

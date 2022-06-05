@@ -66,7 +66,7 @@ public class ControllerIntervenantModule {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK,
 					repository.findById(model.getIdIntervenantModule()).map(newModel -> {
-						newModel.setPersonne(model.getPersonne());
+						newModel.setPersonneIntervenant(model.getPersonneIntervenant());
 						newModel.setModule(model.getModule());
 						newModel.setCampus(model.getCampus());
 						newModel.setDateDebutIntervenention(model.getDateDebutIntervenention());

@@ -66,8 +66,8 @@ public class ControllerAcces {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK,
 					repository.findById(model.getIdAcces()).map(newModel -> {
-						newModel.setCode(model.getCode());
-						newModel.setLibelle(model.getLibelle());
+						newModel.setCodeAcces(model.getCodeAcces());
+						newModel.setLibelleAcces(model.getLibelleAcces());
 						return responseHandler.generateResponse(HttpStatus.NOT_FOUND, repository.save(newModel));
 					}));
 		} catch (Exception e) {

@@ -25,18 +25,22 @@ public class ModelPlanificationCours {
 	private Date dateHeureDebutPlanification;
 	private Date dateHeureFinPlanification;
 	private int estConfirme;
+	@ManyToOne
+	@JoinColumn(name = "id_type_planification", nullable = false)
+	private ModelTypePlanification typePlanification;
 	
 	public ModelPlanificationCours() {
 		super();
 	}
 	
-	public ModelPlanificationCours(Long idPlanification, ModelModule module, Date dateHeureDebutPlanification, Date dateHeureFinPlanification, int estConfirme) {
+	public ModelPlanificationCours(Long idPlanification, ModelModule module, Date dateHeureDebutPlanification, Date dateHeureFinPlanification, int estConfirme, ModelTypePlanification typePlanification) {
 		super();
 		this.idPlanification = idPlanification;
 		this.module = module;
 		this.dateHeureDebutPlanification = dateHeureDebutPlanification;
 		this.dateHeureFinPlanification = dateHeureFinPlanification;
 		this.estConfirme = estConfirme;
+		this.typePlanification = typePlanification;
 	}
 
 	public Long getIdPlanification() {
@@ -77,6 +81,14 @@ public class ModelPlanificationCours {
 
 	public void setEstConfirme(int estConfirme) {
 		this.estConfirme = estConfirme;
+	}
+
+	public ModelTypePlanification getTypePlanification() {
+		return typePlanification;
+	}
+
+	public void setTypePlanification(ModelTypePlanification typePlanification) {
+		this.typePlanification = typePlanification;
 	}
 	
 }

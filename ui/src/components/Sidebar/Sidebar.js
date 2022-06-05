@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
 import {
   Home,
-  ArrowBack,
-  SupervisedUserCircle,
-  VpnKey
+  ArrowBack
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -28,18 +26,34 @@ var structure = [];
 if (localStorage.getItem('id_token') === "ADMIN") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
-    { id: 1, label: "Utilisateur", link: "/app/utilisateur", icon: <SupervisedUserCircle /> },
-    { id: 2, label: "Accès", link: "/app/acces", icon: <VpnKey /> },
+    { id: 1, label: "Gestion des utilisateurs", link: "/app/utilisateur", icon: <Home /> },
+    { id: 2, label: "Gestion des accès", link: "/app/acces", icon: <Home /> },
+    { id: 3, label: "Gestion des niveaux", link: "/app/niveau", icon: <Home /> },
+    { id: 4, label: "Gestion des cours", link: "/app/module", icon: <Home /> },
+    { id: 5, label: "Gestion des spécialités", link: "/app/specialite", icon: <Home /> },
+    { id: 6, label: "Gestion des types de contrat", link: "/app/typeContrat", icon: <Home /> },
+    { id: 7, label: "Gestion des types de formation", link: "/app/typeFormation", icon: <Home /> },
+    { id: 8, label: "Gestion de planification des cours", link: "/app/planificationCours", icon: <Home /> },
+    { id: 9, label: "Gestion des types de partenariat", link: "/app/naturePartenariat", icon: <Home /> },
+    { id: 10, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
+    { id: 11, label: "Gestion des groupes", link: "/app/groupe", icon: <Home /> },
+    { id: 12, label: "Gestion des entreprise", link: "/app/entreprise", icon: <Home /> },
+    { id: 13, label: "Gestion des modules & spécialités", link: "/app/modSpec", icon: <Home /> },
+    { id: 14, label: "Liste des campus", link: "/app/campus", icon: <Home /> },
+    { id: 15, label: "Gestion des étudiants", link: "/app/etudiant", icon: <Home /> },
+    { id: 16, label: "Gestion des contrats", link: "/app/contrat", icon: <Home /> },
+    { id: 17, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
   ];
 }
 
 if (localStorage.getItem('id_token') === "DA") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
-    { id: 1, label: "Etudiants", link: "/app/etudiant", icon: <SupervisedUserCircle /> },
-    { id: 2, label: "Liste des cours et intervenants", link: "/app/coursIntervenant", icon: <SupervisedUserCircle /> },
-    { id: 3, label: "Liste des niveaux", link: "/app/niveau", icon: <SupervisedUserCircle /> },
-    { id: 4, label: "Liste des campus", link: "/app/campus", icon: <SupervisedUserCircle /> },
+    { id: 1, label: "Liste des étudiants", link: "/app/listeEtudiant", icon: <Home /> },
+    { id: 2, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
+    { id: 3, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <Home /> },
+    { id: 4, label: "Liste des étudiants pour les rattrapages", link: "/app/listeEtudiantRattrapage", icon: <Home /> },
+    { id: 5, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
   ];
 }
 

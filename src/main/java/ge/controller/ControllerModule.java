@@ -32,6 +32,15 @@ public class ControllerModule {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
+	
+	@GetMapping("/allModuleByNiveau")
+	ResponseEntity<Object> allByNiveau(@PathVariable Long id) {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.findModuleByNiveau(id));
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
 
 	@PostMapping("/addModule")
 	ResponseEntity<Object> add(@RequestBody ModelModule model) {

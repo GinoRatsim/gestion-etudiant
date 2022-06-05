@@ -20,8 +20,8 @@ public class ModelIntervenantModule {
 	@SequenceGenerator(name = "generator_intervenant_module", sequenceName = "_seq_intervenant_module")
 	private Long idIntervenantModule;
 	@ManyToOne
-	@JoinColumn(name = "id_personne", nullable = false)
-	private ModelPersonne personne;
+	@JoinColumn(name = "id_personne_intervenant", nullable = false)
+	private ModelPersonneIntervenant personneIntervenant;
 	@ManyToOne
 	@JoinColumn(name = "id_module", nullable = false)
 	private ModelModule module;
@@ -35,10 +35,10 @@ public class ModelIntervenantModule {
 		super();
 	}
 
-	public ModelIntervenantModule(Long idIntervenantModule, ModelPersonne personne, ModelModule module, ModelCampus campus, Date dateDebutIntervenention, Date dateFinIntervenention) {
+	public ModelIntervenantModule(Long idIntervenantModule, ModelPersonneIntervenant personneIntervenant, ModelModule module, ModelCampus campus, Date dateDebutIntervenention, Date dateFinIntervenention) {
 		super();
 		this.idIntervenantModule = idIntervenantModule;
-		this.personne = personne;
+		this.personneIntervenant = personneIntervenant;
 		this.module = module;
 		this.campus = campus;
 		this.dateDebutIntervenention = dateDebutIntervenention;
@@ -53,12 +53,12 @@ public class ModelIntervenantModule {
 		this.idIntervenantModule = idIntervenantModule;
 	}
 
-	public ModelPersonne getPersonne() {
-		return personne;
+	public ModelPersonneIntervenant getPersonneIntervenant() {
+		return personneIntervenant;
 	}
 
-	public void setPersonne(ModelPersonne personne) {
-		this.personne = personne;
+	public void setPersonneIntervenant(ModelPersonneIntervenant personneIntervenant) {
+		this.personneIntervenant = personneIntervenant;
 	}
 
 	public ModelModule getModule() {

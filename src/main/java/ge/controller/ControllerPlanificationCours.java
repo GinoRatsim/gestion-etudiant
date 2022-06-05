@@ -70,6 +70,7 @@ public class ControllerPlanificationCours {
 						newModel.setDateHeureDebutPlanification(model.getDateHeureDebutPlanification());
 						newModel.setDateHeureFinPlanification(model.getDateHeureFinPlanification());
 						newModel.setEstConfirme(model.getEstConfirme());
+						newModel.setTypePlanification(model.getTypePlanification());
 						return responseHandler.generateResponse(HttpStatus.NOT_FOUND, repository.save(newModel));
 					}));
 		} catch (Exception e) {

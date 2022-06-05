@@ -70,6 +70,8 @@ public class ControllerMemoire {
 						newModel.setEstObligatoire(model.getEstObligatoire());
 						newModel.setaSoutenance(model.getaSoutenance());
 						newModel.setEstValide(model.getEstValide());
+						newModel.setNotesSoutenance(model.getNotesSoutenance());
+						newModel.setNotesRapports(model.getNotesRapports());
 						return responseHandler.generateResponse(HttpStatus.NOT_FOUND, repository.save(newModel));
 					}));
 		} catch (Exception e) {

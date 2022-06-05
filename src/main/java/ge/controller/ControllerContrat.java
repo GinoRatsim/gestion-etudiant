@@ -32,6 +32,15 @@ public class ControllerContrat {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
+	
+	@GetMapping("/contratDispoMemoire")
+	ResponseEntity<Object> contratDispoMemoire() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.contratDispoMemoire());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
 
 	@PostMapping("/addContrat")
 	ResponseEntity<Object> add(@RequestBody ModelContrat model) {

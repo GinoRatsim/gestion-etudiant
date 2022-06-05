@@ -23,18 +23,22 @@ public class ModelMemoire {
 	private int estObligatoire;
 	private int aSoutenance;
 	private int estValide;
+	private double notesSoutenance;
+	private double notesRapports;
 	
 	public ModelMemoire() {
 		super();
 	}
 
-	public ModelMemoire(Long idMemoire, ModelContrat contrat, int estObligatoire, int aSoutenance, int estValide) {
+	public ModelMemoire(Long idMemoire, ModelContrat contrat, int estObligatoire, int aSoutenance, int estValide, double notesSoutenance, double notesRapports) {
 		super();
 		this.idMemoire = idMemoire;
 		this.contrat = contrat;
 		this.estObligatoire = estObligatoire;
 		this.aSoutenance = aSoutenance;
 		this.estValide = estValide;
+		this.notesRapports = notesRapports;
+		this.notesSoutenance = notesSoutenance;
 	}
 
 	public Long getIdMemoire() {
@@ -75,6 +79,22 @@ public class ModelMemoire {
 
 	public void setEstValide(int estValide) {
 		this.estValide = estValide;
+	}
+
+	public double getNotesSoutenance() {
+		return notesSoutenance;
+	}
+
+	public void setNotesSoutenance(double notesSoutenance) {
+		this.notesSoutenance = notesSoutenance;
+	}
+
+	public double getNotesRapports() {
+		return notesRapports;
+	}
+
+	public void setNotesRapports(double notesRapports) {
+		this.notesRapports = notesRapports;
 	}
 	
 }

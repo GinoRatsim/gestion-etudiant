@@ -32,6 +32,15 @@ public class ControllerNotes {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
+	
+	@GetMapping("/allNotesRattrapage")
+	ResponseEntity<Object> allNotesRattrapage() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.allNotesRattrapage());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
 
 	@PostMapping("/addNotes")
 	ResponseEntity<Object> add(@RequestBody ModelNotes model) {

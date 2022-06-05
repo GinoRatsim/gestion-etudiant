@@ -23,17 +23,22 @@ public class ModelLogin {
 	@ManyToOne
 	@JoinColumn(name = "id_acces", nullable = false)
 	private ModelAcces accesModel;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_personne", nullable = false)
+	private ModelPersonne personne;
 
 	public ModelLogin() {
 		super();
 	}
 
-	public ModelLogin(Long idLogin, String user, String pass, ModelAcces accesModel) {
+	public ModelLogin(Long idLogin, String user, String pass, ModelAcces accesModel, ModelPersonne personne) {
 		super();
 		this.idLogin = idLogin;
 		this.user = user;
 		this.pass = pass;
 		this.accesModel = accesModel;
+		this.personne = personne;
 	}
 
 	public Long getIdLogin() {
@@ -66,6 +71,14 @@ public class ModelLogin {
 
 	public void setAccesModel(ModelAcces accesModel) {
 		this.accesModel = accesModel;
+	}
+
+	public ModelPersonne getPersonne() {
+		return personne;
+	}
+
+	public void setPersonne(ModelPersonne personne) {
+		this.personne = personne;
 	}
 
 }
