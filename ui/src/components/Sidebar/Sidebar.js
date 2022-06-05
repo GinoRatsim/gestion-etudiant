@@ -50,10 +50,10 @@ if (localStorage.getItem('id_token') === "DA") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
     { id: 1, label: "Liste des étudiants", link: "/app/listeEtudiant", icon: <Home /> },
-    { id: 2, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
-    { id: 3, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <Home /> },
-    { id: 4, label: "Liste des étudiants pour les rattrapages", link: "/app/listeEtudiantRattrapage", icon: <Home /> },
-    { id: 5, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
+    { id: 2, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <Home /> },
+    { id: 3, label: "Liste des étudiants pour les rattrapages", link: "/app/listeEtudiantRattrapage", icon: <Home /> },
+    { id: 4, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
+    { id: 5, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
   ];
 }
 

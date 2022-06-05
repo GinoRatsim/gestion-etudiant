@@ -4,6 +4,8 @@ import PageTitle from "../../components/PageTitle";
 
 import Moment from 'moment';
 
+import jsPDF from 'jspdf'
+
 export default function FicheEtudiant(props) {
 
 	Moment.locale('fr');
@@ -41,7 +43,11 @@ export default function FicheEtudiant(props) {
 	}, [])
 
 	function genererBulletin(idNiveau, idEtudiant) {
-		alert("Bulletin de note étudiant : " + idEtudiant + " et niveau : " + idNiveau);
+		var doc = new jsPDF('p', 'pt')
+		doc.text(20, 20, 'This is default text')
+		doc.setFont('courier')
+		doc.text(20, 30, 'This is text with courier font')
+		doc.save(idEtudiant+"-"+idNiveau+'.pdf');
 	}
 
 	if (!isLoaded) {
@@ -176,10 +182,10 @@ export default function FicheEtudiant(props) {
 								{
 									niveau.map(
 										res => (
-											<div className='col-sm-2' key={res.idNiveau}>
+											<div className='col-sm-3' key={res.idNiveau}>
 												<table className='table bg-white'>
 													<thead>
-														<tr>
+														<tr className='bg-info text-light'>
 															<th colSpan='3' className='text-center'>{res.libelleNiveau}</th>
 														</tr>
 													</thead>
@@ -190,20 +196,24 @@ export default function FicheEtudiant(props) {
 															<td>CREDITS</td>
 														</tr>
 														{
-															moyenne = 0, nombreModule = 0, creditObtenu = 0,
+															moyenne = 0,
+															nombreModule = 0, 
+															creditObtenu = 0,
 															etudiant[3].map(
 																rep => (
 																	res.idNiveau === rep.module.niveau.idNiveau ? (
 																		moyenne += rep.notes,
 																		nombreModule += 1,
 																		creditObtenu += rep.notes >= 10 ? rep.module.creditRequis : 0,
-																		<tr key={res.idNiveau + "/" + rep.idNotes}>
+																		<tr key={res.idNiveau + "" + rep.idNotes}>
 																			<td>{rep.module.libelleModule}</td>
 																			<td>{rep.notes}</td>
 																			<td>{rep.notes >= 10 ? rep.module.creditRequis : 0}</td>
 																		</tr>
 																	) : (
-																		<div></div>
+																		<tr key={res.idNiveau + "" + rep.idNotes}>
+																			
+																		</tr>
 																	)
 																)
 															)
@@ -220,7 +230,7 @@ export default function FicheEtudiant(props) {
 															moyenne > 0 ? (
 																<tr>
 																	<td colSpan='3'>
-																		<button className='btn btn-secondary btn-block' onClick={() => genererBulletin(res.idNiveau, idEtudiant)}>Bulletin de note</button>
+																		<button className='btn btn-secondary btn-block' onClick={() => genererBulletin(res.idNiveau, idEtudiant)}>Générer le bulletin de note</button>
 																	</td>
 																</tr>
 															) : (

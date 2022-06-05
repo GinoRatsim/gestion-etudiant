@@ -147,6 +147,7 @@ export default function Partenariat(props) {
 
 	function modifier(id) {
 		document.getElementById('idPartenariats').value = id;
+		document.getElementById('btn-ajout').innerText = "Modifier";
 		fetch("http://localhost:8080/onePartenariats/" + id)
 			.then(async response => {
 				const data = await response.json();
@@ -244,8 +245,8 @@ export default function Partenariat(props) {
 								<textarea className='form-control' id='description' ref={descriptionRef} onChange={(e) => setDescription(e.target.value)} value={description} ></textarea>
 							</div>
 							<div className='col-sm-2'>
-								<label><input type="hidden" id="idPartenariats" className='form-control' disabled /></label>
-								<button className='btn btn-secondary btn-block btn-sup'>Ajouter</button>
+								<label>&nbsp;<input type="hidden" id="idPartenariats" className='form-control' disabled /></label>
+								<button className='btn btn-secondary btn-block btn-sup' id='btn-ajout'>Ajouter</button>
 							</div>
 						</div>
 					</form>
