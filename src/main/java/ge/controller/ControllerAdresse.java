@@ -61,6 +61,16 @@ public class ControllerAdresse {
 		}
 	}
 
+
+	@GetMapping("/getAdresseEmailByNiveau/{id}")
+	ResponseEntity<Object> getAdresseEmailByNiveau(@PathVariable Long id) {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.getAdresseEmailByNiveau(id));
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
 	@GetMapping("/deleteAdresse/{id}")
 	ResponseEntity<Object> delete(@PathVariable Long id) {
 		try {

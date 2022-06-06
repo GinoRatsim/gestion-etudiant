@@ -151,7 +151,6 @@ export default function Partenariat(props) {
 		fetch("http://localhost:8080/onePartenariats/" + id)
 			.then(async response => {
 				const data = await response.json();
-				console.log(data.result.naturePartenariat);
 				setNaturePartenariat(data.result.naturePartenariat.idNaturePartenariat);
 				setDateDebutPartenariat(Moment(data.result.dateDebutPartenariat).format('yyyy-MM-DD'));
 				setDateFinPartenariat(Moment(data.result.dateFinPartenariat).format('yyyy-MM-DD'));

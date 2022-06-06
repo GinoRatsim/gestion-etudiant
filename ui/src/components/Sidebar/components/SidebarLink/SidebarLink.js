@@ -55,7 +55,6 @@ export default function SidebarLink({
         className={classes.link}
         classes={{
           root: classnames(classes.linkRoot, {
-            [classes.linkActive]: isLinkActive && !nested,
             [classes.linkNested]: nested,
           }),
         }}
@@ -91,7 +90,6 @@ export default function SidebarLink({
         className={classes.link}
         classes={{
           root: classnames(classes.linkRoot, {
-            [classes.linkActive]: isLinkActive && !nested,
             [classes.linkNested]: nested,
           }),
         }}

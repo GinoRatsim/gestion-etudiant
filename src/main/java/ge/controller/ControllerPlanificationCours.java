@@ -33,6 +33,15 @@ public class ControllerPlanificationCours {
 		}
 	}
 
+	@GetMapping("/allPlanificationCoursP")
+	ResponseEntity<Object> getPlaningPedagogie() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.getPlaningPedagogie());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+
 	@PostMapping("/addPlanificationCours")
 	ResponseEntity<Object> add(@RequestBody ModelPlanificationCours model) {
 		try {

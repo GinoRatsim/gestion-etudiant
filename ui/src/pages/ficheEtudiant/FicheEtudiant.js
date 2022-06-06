@@ -59,7 +59,7 @@ export default function FicheEtudiant(props) {
 		return (
 			<>
 				{
-					localStorage.getItem('id_token') === "DA" ? (
+					localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" ? (
 						<div>
 							<PageTitle title="Fiche de l'étudiant" />
 							<div className='row'>
@@ -227,7 +227,7 @@ export default function FicheEtudiant(props) {
 															<td><b>{creditObtenu}</b></td>
 														</tr>
 														{
-															moyenne > 0 ? (
+															moyenne > 0 && localStorage.getItem('id_token') === "DA" ? (
 																<tr>
 																	<td colSpan='3'>
 																		<button className='btn btn-secondary btn-block' onClick={() => genererBulletin(res.idNiveau, idEtudiant)}>Générer le bulletin de note</button>
@@ -235,7 +235,7 @@ export default function FicheEtudiant(props) {
 																</tr>
 															) : (
 																<tr>
-																	<td colSpan='3'> </td>
+																	
 																</tr>
 															)
 														}

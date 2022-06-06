@@ -33,7 +33,7 @@ if (localStorage.getItem('id_token') === "ADMIN") {
     { id: 5, label: "Gestion des spécialités", link: "/app/specialite", icon: <Home /> },
     { id: 6, label: "Gestion des types de contrat", link: "/app/typeContrat", icon: <Home /> },
     { id: 7, label: "Gestion des types de formation", link: "/app/typeFormation", icon: <Home /> },
-    { id: 8, label: "Gestion de planification des cours", link: "/app/planificationCours", icon: <Home /> },
+    { id: 8, label: "Gestion de planification", link: "/app/planificationCours", icon: <Home /> },
     { id: 9, label: "Gestion des types de partenariat", link: "/app/naturePartenariat", icon: <Home /> },
     { id: 10, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
     { id: 11, label: "Gestion des groupes", link: "/app/groupe", icon: <Home /> },
@@ -60,6 +60,13 @@ if (localStorage.getItem('id_token') === "DA") {
 if (localStorage.getItem('id_token') === "P") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
+    { id: 1, label: "Planification des cours", link: "/app/planificationCours", icon: <Home /> },
+    { id: 2, label: "Etudiants", link: "/app/listeEtudiant", icon: <Home /> },
+    { id: 3, label: "Etudiants pour les rattrapages", link: "/app/listeEtudiantRattrapage", icon: <Home /> },
+    { id: 4, label: "Entreprise : alternants/stages", link: "/app/entrepriseAltStage", icon: <Home /> },
+    { id: 5, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
+    { id: 6, label: "Envoi des mail par promo", link: "/app/envoiMailPromo", icon: <Home /> },
+    { id: 7, label: "Gestion des rattrapages", link: "/app/planificationCours", icon: <Home /> },
   ];
 }
 

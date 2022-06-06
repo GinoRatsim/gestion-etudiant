@@ -33,6 +33,15 @@ public class ControllerTypePlanification {
 		}
 	}
 
+	@GetMapping("/allTypePlanificationP")
+	ResponseEntity<Object> allP() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.getTypePlanificationP());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
 	@PostMapping("/addTypePlanification")
 	ResponseEntity<Object> add(@RequestBody ModelTypePlanification model) {
 		try {

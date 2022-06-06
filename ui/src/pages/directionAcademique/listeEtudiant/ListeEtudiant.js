@@ -39,7 +39,7 @@ export default function ListeEtudiant(props) {
 
 	return (
 		<>
-			{localStorage.getItem('id_token') === "DA" ? (
+			{localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" ? (
 				<div>
 					<PageTitle title="Liste des étudiants" />
 					<Grid container spacing={4}>
