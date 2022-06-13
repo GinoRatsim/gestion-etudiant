@@ -24,7 +24,7 @@ export default function Utilisateur(props) {
 	}, [])
 
 	donnee.forEach(function(item, i) {
-		datatableData[i] = [item.user, item.accesModel.libelle]
+		datatableData[i] = [item.user, item.accesModel.libelleAcces]
 	});
 
 	const userRef = useRef();
@@ -89,7 +89,7 @@ export default function Utilisateur(props) {
 								<select className='form-control' ref={accesRef} onChange={(e) => setAcces(e.target.value)} value={acces}>
 									<option>--</option>
 									{listeAcces.map(res => (
-										<option key={res.idAcces} value={res.idAcces}>{res.libelle}</option>
+										<option key={res.idAcces} value={res.idAcces}>{res.libelleAcces}</option>
 									))}
 								</select>
 							</div>

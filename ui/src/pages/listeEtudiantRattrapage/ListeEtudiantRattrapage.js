@@ -49,7 +49,7 @@ export default function ListeEtudiantRattrapage(props) {
 		<>
 			{localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" ? (
 				<div>
-					<PageTitle title="Liste des étudiants" />
+					<PageTitle title="Liste des étudiants pour les rattrapages" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
 							<MUIDataTable

@@ -81,46 +81,52 @@ export default function Module(props) {
 
 	return (
 		<>
-			{localStorage.getItem('id_token') === "ADMIN" ? (
+			{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "E" ? (
 				<div>
-					<PageTitle title="Ajouter un cours" />
-					<form onSubmit={add}>
-						<div className='row ajout-type-acces'>
-							<div className='col-sm-2'>
-								<label>Niveau</label>
-								<select className='form-control' ref={niveauRef} onChange={(e) => setNiveau(e.target.value)} value={niveau}>
-									<option>--</option>
-									{listeNiveau.map(res => (
-										<option key={res.idNiveau} value={res.idNiveau}>{res.codeNiveau} - {res.libelleNiveau}</option>
-									))}
-								</select>
-							</div>
-							<div className='col-sm-2'>
-								<label>Code</label>
-								<input type="text" className='form-control' ref={codeRef} onChange={(e) => setCode(e.target.value)} value={code} required />
-							</div>
-							<div className='col-sm-2'>
-								<label>Libellé</label>
-								<input type="text" className='form-control' ref={libelleRef} onChange={(e) => setLibelle(e.target.value)} value={libelle} required />
-							</div>
-							<div className='col-sm-2'>
-								<label>Obligatoire</label>
-								<select className='form-control' ref={obligatoireRef} onChange={(e) => setObligatoire(e.target.value)} value={obligatoire}>
-									<option>--</option>
-									<option value="1">Oui</option>
-									<option value="0">Non</option>
-								</select>
-							</div>
-							<div className='col-sm-2'>
-								<label>Crédit requis</label>
-								<input type="number" min="0" className='form-control' ref={creditRequisRef} onChange={(e) => setCreditRequis(e.target.value)} value={creditRequis} required />
-							</div>
-							<div className='col-sm-2'>
-								<label>&nbsp;</label>
-								<button className='btn btn-secondary btn-block btn-sup'>Ajouter</button>
-							</div>
+					{localStorage.getItem('id_token') === "ADMIN" ? (
+						<div>
+							<PageTitle title="Ajouter un cours" />
+							<form onSubmit={add}>
+								<div className='row ajout-type-acces'>
+									<div className='col-sm-2'>
+										<label>Niveau</label>
+										<select className='form-control' ref={niveauRef} onChange={(e) => setNiveau(e.target.value)} value={niveau}>
+											<option>--</option>
+											{listeNiveau.map(res => (
+												<option key={res.idNiveau} value={res.idNiveau}>{res.codeNiveau} - {res.libelleNiveau}</option>
+											))}
+										</select>
+									</div>
+									<div className='col-sm-2'>
+										<label>Code</label>
+										<input type="text" className='form-control' ref={codeRef} onChange={(e) => setCode(e.target.value)} value={code} required />
+									</div>
+									<div className='col-sm-2'>
+										<label>Libellé</label>
+										<input type="text" className='form-control' ref={libelleRef} onChange={(e) => setLibelle(e.target.value)} value={libelle} required />
+									</div>
+									<div className='col-sm-2'>
+										<label>Obligatoire</label>
+										<select className='form-control' ref={obligatoireRef} onChange={(e) => setObligatoire(e.target.value)} value={obligatoire}>
+											<option>--</option>
+											<option value="1">Oui</option>
+											<option value="0">Non</option>
+										</select>
+									</div>
+									<div className='col-sm-2'>
+										<label>Crédit requis</label>
+										<input type="number" min="0" className='form-control' ref={creditRequisRef} onChange={(e) => setCreditRequis(e.target.value)} value={creditRequis} required />
+									</div>
+									<div className='col-sm-2'>
+										<label>&nbsp;</label>
+										<button className='btn btn-secondary btn-block btn-sup'>Ajouter</button>
+									</div>
+								</div>
+							</form>
 						</div>
-					</form>
+					) : (
+						<div></div>
+					)}
 					<br />
 					<PageTitle title="Liste des cours" />
 					<Grid container spacing={4}>

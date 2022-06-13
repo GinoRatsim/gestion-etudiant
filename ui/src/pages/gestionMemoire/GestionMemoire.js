@@ -135,7 +135,7 @@ export default function GestionMemoire(props) {
 		<>
 			{localStorage.getItem('id_token') === "DA" ? (
 				<div>
-					<PageTitle title="Ajouter une spécialité" />
+					<PageTitle title="Ajouter une mémoire de fin de cycle" />
 					<form onSubmit={add}>
 						<div className='row ajout-type-acces'>
 							<div className='col-sm-12' id='divContrat'>

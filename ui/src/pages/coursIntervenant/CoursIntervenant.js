@@ -31,7 +31,7 @@ export default function CoursIntervenant(props) {
 
     return (
         <>
-            {localStorage.getItem('id_token') === "DA" ? (
+            {localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "E" ? (
                 <div>
                     <div>
                         <div className='row'>

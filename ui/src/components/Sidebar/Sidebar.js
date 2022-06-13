@@ -60,13 +60,12 @@ if (localStorage.getItem('id_token') === "DA") {
 if (localStorage.getItem('id_token') === "P") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
-    { id: 1, label: "Planification des cours", link: "/app/planificationCours", icon: <Home /> },
+    { id: 1, label: "Gestion des planifications", link: "/app/planificationCours", icon: <Home /> },
     { id: 2, label: "Etudiants", link: "/app/listeEtudiant", icon: <Home /> },
     { id: 3, label: "Etudiants pour les rattrapages", link: "/app/listeEtudiantRattrapage", icon: <Home /> },
     { id: 4, label: "Entreprise : alternants/stages", link: "/app/entrepriseAltStage", icon: <Home /> },
     { id: 5, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
     { id: 6, label: "Envoi des mail par promo", link: "/app/envoiMailPromo", icon: <Home /> },
-    { id: 7, label: "Gestion des rattrapages", link: "/app/planificationCours", icon: <Home /> },
   ];
 }
 
@@ -79,6 +78,9 @@ if (localStorage.getItem('id_token') === "ADM") {
 if (localStorage.getItem('id_token') === "E") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
+    { id: 1, label: "Liste des cours", link: "/app/module", icon: <Home /> },
+    { id: 2, label: "Liste des offres pro", link: "/app/offresPro", icon: <Home /> },
+    { id: 3, label: "Liste des rattrapages", link: "/app/planificationCours", icon: <Home /> },
   ];
 }
 

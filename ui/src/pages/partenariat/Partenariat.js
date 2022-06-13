@@ -135,7 +135,6 @@ export default function Partenariat(props) {
 		fetch("http://localhost:8080/onePartenariats/" + id)
 			.then(async response => {
 				const data = await response.json();
-				console.log(data.result);
 				document.getElementById('desc').innerHTML = data.result.description;
 				document.getElementById('dateDebut').innerHTML = Moment(data.result.dateDebutPartenariat).format('DD/MM/yyyy');
 				document.getElementById('dateFin').innerHTML = Moment(data.result.dateFinPartenariat).format('DD/MM/yyyy');

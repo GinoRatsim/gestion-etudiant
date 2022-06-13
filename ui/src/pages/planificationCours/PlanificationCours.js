@@ -25,40 +25,21 @@ export default function PlanificationCours(props) {
 	const [moduleListe, setModuleListe] = useState([]);
 
 	useEffect(() => {
-		if (localStorage.getItem('id_token') === "P") {
-			fetch("http://localhost:8080/allPlanificationCoursP")
-				.then(res => res.json())
-				.then(
-					(data) => {
-						setDonnee(data.result);
-					}
-				)
+		fetch("http://localhost:8080/allPlanificationCours")
+			.then(res => res.json())
+			.then(
+				(data) => {
+					setDonnee(data.result);
+				}
+			)
 
-			fetch("http://localhost:8080/allTypePlanificationP")
-				.then(res => res.json())
-				.then(
-					(data) => {
-						setListeTypePlanification(data.result);
-					}
-				)
-		}
-		else {
-			fetch("http://localhost:8080/allPlanificationCours")
-				.then(res => res.json())
-				.then(
-					(data) => {
-						setDonnee(data.result);
-					}
-				)
-
-			fetch("http://localhost:8080/allTypePlanification")
-				.then(res => res.json())
-				.then(
-					(data) => {
-						setListeTypePlanification(data.result);
-					}
-				)
-		}
+		fetch("http://localhost:8080/allTypePlanification")
+			.then(res => res.json())
+			.then(
+				(data) => {
+					setListeTypePlanification(data.result);
+				}
+			)
 	}, [])
 
 
@@ -98,33 +79,58 @@ export default function PlanificationCours(props) {
 	const add = async (e) => {
 		e.preventDefault();
 		try {
-			axios.post(
-				'http://localhost:8080/addPlanificationCours',
-				JSON.stringify(
-					{
-						"idPlanification": 0,
-						"dateHeureDebutPlanification": dateHeureDebutPlanification,
-						"dateHeureFinPlanification": dateHeureFinPlanification,
-						"estConfirme": estConfirme,
-						"module": {
-							"idModule": moduleModel
-						},
-						"typePlanification": {
-							"idTypePlanification": typePlanification
+			var idPlanification = document.getElementById('idPlanification').value;
+			if (idPlanification > 0) {
+				axios.post(
+					'http://localhost:8080/addPlanificationCours',
+					JSON.stringify(
+						{
+							"idPlanification": idPlanification,
+							"dateHeureDebutPlanification": dateHeureDebutPlanification,
+							"dateHeureFinPlanification": dateHeureFinPlanification,
+							"estConfirme": estConfirme,
+							"module": {
+								"idModule": moduleModel
+							},
+							"typePlanification": {
+								"idTypePlanification": typePlanification
+							}
 						}
+					),
+					{
+						headers: { 'Content-Type': 'application/json' }
 					}
-				),
-				{
-					headers: { 'Content-Type': 'application/json' }
-				}
-			)
+				)
+			}
+			else {
+				axios.post(
+					'http://localhost:8080/addPlanificationCours',
+					JSON.stringify(
+						{
+							"idPlanification": 0,
+							"dateHeureDebutPlanification": dateHeureDebutPlanification,
+							"dateHeureFinPlanification": dateHeureFinPlanification,
+							"estConfirme": estConfirme,
+							"module": {
+								"idModule": moduleModel
+							},
+							"typePlanification": {
+								"idTypePlanification": typePlanification
+							}
+						}
+					),
+					{
+						headers: { 'Content-Type': 'application/json' }
+					}
+				)
+			}
 			window.location.reload(false);
 		}
 		catch (err) {
 
 		}
 	}
-	
+
 	function modifier(id) {
 		document.getElementById('idPlanification').value = id;
 		document.getElementById('btn-ajout').innerText = "Modifier";
@@ -146,9 +152,9 @@ export default function PlanificationCours(props) {
 
 	return (
 		<>
-			{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "P" ? (
+			{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "P" || localStorage.getItem('id_token') === "E" ? (
 				<div>
-					{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "P" &&
+					{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "P" ? (
 						<div>
 							<PageTitle title="Ajouter une planification" />
 							<form onSubmit={add}>
@@ -188,48 +194,62 @@ export default function PlanificationCours(props) {
 										</select>
 									</div>
 									<div className='col-sm-2'>
-								<label>&nbsp;<input type="hidden" id="idPlanification" className='form-control' disabled /></label>
+										<label>&nbsp;<input type="hidden" id="idPlanification" className='form-control' disabled /></label>
 										<button className='btn btn-secondary btn-block btn-sup' id='btn-ajout'>Ajouter</button>
 									</div>
 								</div>
 							</form>
 							<br />
-						</div>
-					}
 
-
-					<PageTitle title="Liste des planification" />
-					<Grid container spacing={4}>
-						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={[
-									"DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE",
-									{
-										name: "",
-										options: {
-											customBodyRender: (value, tableMeta, updateValue) => {
-												return (
-													<div>
-														<button className='btn btn-warning' onClick={() => modifier(value)}>
-															<Edit />
-														</button>
-														&nbsp;
-														<button className='btn btn-danger' onClick={() => supprimer(value)}>
-															<Delete />
-														</button>
-													</div>
-												);
+							<PageTitle title="Liste des planification" />
+							<Grid container spacing={4}>
+								<Grid item xs={12}>
+									<MUIDataTable
+										data={datatableData}
+										columns={[
+											"DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE",
+											{
+												name: "",
+												options: {
+													customBodyRender: (value, tableMeta, updateValue) => {
+														return (
+															<div>
+																<button className='btn btn-warning' onClick={() => modifier(value)}>
+																	<Edit />
+																</button>
+																&nbsp;
+																<button className='btn btn-danger' onClick={() => supprimer(value)}>
+																	<Delete />
+																</button>
+															</div>
+														);
+													}
+												}
 											}
-										}
-									}
-								]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
-						</Grid>
-					</Grid>
+										]}
+										options={{
+											selectableRows: 'none'
+										}}
+									/>
+								</Grid>
+							</Grid>
+						</div>
+					) : (
+						<div>
+						<PageTitle title="Liste des planification" />
+							<Grid container spacing={4}>
+								<Grid item xs={12}>
+									<MUIDataTable
+										data={datatableData}
+										columns={[ "DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE" ]}
+										options={{
+											selectableRows: 'none'
+										}}
+									/>
+								</Grid>
+							</Grid>
+						</div>
+					)}
 				</div>
 			) : (
 				<Redirect to={{ pathname: "/app/dashboard" }} />
