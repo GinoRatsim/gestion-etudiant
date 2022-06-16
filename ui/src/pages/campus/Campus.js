@@ -41,7 +41,6 @@ export default function Campus(props) {
 				'http://localhost:8080/addCampus',
 				JSON.stringify(
 					{
-						"idCampus": 0,
 						"codeCampus": code,
 						"libelleCampus": libelle
 					}
@@ -49,8 +48,9 @@ export default function Campus(props) {
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 
@@ -61,7 +61,7 @@ export default function Campus(props) {
 		<>
 			{localStorage.getItem('id_token') === "ADMIN" ? (
 				<div>
-					<PageTitle title="Ajouter une spécialité" />
+					<PageTitle title="Ajouter un campus" />
 					<form onSubmit={add}>
 						<div className='row ajout-type-acces'>
 							<div className='col-sm-4'>

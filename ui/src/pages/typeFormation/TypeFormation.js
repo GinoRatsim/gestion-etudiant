@@ -37,15 +37,15 @@ export default function TypeFormation(props) {
 				'http://localhost:8080/addTypeFormation',
 				JSON.stringify(
 					{
-						"idTypeFormation": 0,
 						"libelleTypeFormation": libelle
 					}
 				),
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

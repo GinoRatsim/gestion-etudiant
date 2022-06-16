@@ -43,10 +43,73 @@ export default function FicheEtudiant(props) {
 	}, [])
 
 	function genererBulletin(idNiveau, idEtudiant) {
+		
 		var doc = new jsPDF('p', 'pt')
-		doc.text(20, 20, 'This is default text')
+		doc.text(20, 50, 'BULLETIN DE NOTE')
 		doc.setFont('courier')
-		doc.text(20, 30, 'This is text with courier font')
+		var ligneNote = 100;
+		var nom;
+		var niveau;
+		var totalNotes = 0;
+		var taille = 0;
+
+		etudiant[3].map(
+			rep => (
+				rep.module.niveau.idNiveau === idNiveau ? (
+					nom=rep.etudiant.personne.prenoms + " " + rep.etudiant.personne.nom,
+					niveau=rep.module.niveau.libelleNiveau,
+					doc.text(30, ligneNote, rep.module.libelleModule + " : " + rep.notes),
+					taille += 1,
+					totalNotes += rep.notes,
+					ligneNote += 20
+				) : (
+					""	
+				)
+			)
+		)
+
+		doc.text(20, ligneNote+5, 'Moyenne : ' + totalNotes/taille)
+		doc.text(20, 70, nom + ' - ' + niveau)
+		doc.save(idEtudiant+"-"+idNiveau+'.pdf');
+	}
+	
+	function genererAttestationReussite(idNiveau, idEtudiant){
+		var doc = new jsPDF('p', 'pt')
+		var nomEtudiant;
+		var niveau;
+		var totalNotes = 0;
+		var taille = 0;
+		var mention;
+		doc.text(20, 50, 'ATTESTATION DE REUSSITE')
+		doc.setFont('courier')
+		doc.text(20, 100, "Je soussigné, Université SUPINFO, atteste que l'étudiant :")
+
+		etudiant[3].map(
+			rep => (
+				nomEtudiant=rep.etudiant.personne.prenoms + " " + rep.etudiant.personne.nom,
+				rep.module.niveau.idNiveau === idNiveau ? (
+					niveau=rep.module.niveau.libelleNiveau,
+					taille += 1,
+					totalNotes += rep.notes
+				) : (
+					""	
+				)
+			)
+		)
+		doc.text(40, 125, nomEtudiant)
+		doc.text(20, 150, "est admise.")
+		doc.text(40, 200, "Niveau : " + niveau)
+		var moyenne = totalNotes/taille
+		doc.text(40, 225, "Moyenne : " + moyenne)
+		console.log(moyenne)
+		if((moyenne === 10 || 10 < moyenne) && (moyenne < 12 || moyenne)) mention = "PASSABLE"
+		if((moyenne === 12 || 12 < moyenne) && (moyenne < 14 || moyenne)) mention = "ASSEZ BIEN"
+		if((moyenne === 14 || 14 < moyenne) && (moyenne < 16 || moyenne)) mention = "BIEN"
+		if((moyenne === 16 || 16 < moyenne) && (moyenne < 21 || moyenne)) mention = "TRES BIEN"
+		doc.text(40, 250, "Mention : " + mention)	
+		doc.text(20, 300, "En foi de quoi, la présente attestation lui est délivrée")
+		doc.text(20, 325, "pour servir et valoir ce que de droit.")			
+		
 		doc.save(idEtudiant+"-"+idNiveau+'.pdf');
 	}
 
@@ -59,7 +122,7 @@ export default function FicheEtudiant(props) {
 		return (
 			<>
 				{
-					localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" ? (
+					localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" || localStorage.getItem('id_token') === "ADMIN" ? (
 						<div>
 							<PageTitle title="Fiche de l'étudiant" />
 							<div className='row'>
@@ -197,7 +260,7 @@ export default function FicheEtudiant(props) {
 														</tr>
 														{
 															moyenne = 0,
-															nombreModule = 0, 
+															nombreModule = 0,
 															creditObtenu = 0,
 															etudiant[3].map(
 																rep => (
@@ -212,7 +275,7 @@ export default function FicheEtudiant(props) {
 																		</tr>
 																	) : (
 																		<tr key={res.idNiveau + "" + rep.idNotes}>
-																			
+
 																		</tr>
 																	)
 																)
@@ -235,7 +298,21 @@ export default function FicheEtudiant(props) {
 																</tr>
 															) : (
 																<tr>
-																	
+
+																</tr>
+															)
+														}
+														
+														{
+															moyenne > 0 && localStorage.getItem('id_token') === "DA" && moyenne/nombreModule >= 10 ? (
+																<tr>
+																	<td colSpan='3'>
+																		<button className='btn btn-secondary btn-block' onClick={() => genererAttestationReussite(res.idNiveau, idEtudiant)}>Générer l'attestation de réussite</button>
+																	</td>
+																</tr>
+															) : (
+																<tr>
+
 																</tr>
 															)
 														}

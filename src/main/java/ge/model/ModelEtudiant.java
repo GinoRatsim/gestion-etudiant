@@ -39,19 +39,26 @@ public class ModelEtudiant {
 	@ManyToOne
 	@JoinColumn(name = "id_type_formation", nullable = false)
 	private ModelTypeFormation typeFormation;
-	private Date debutAnneeScolaire;
-	private Date finAnneeScolaire;
 	private double creditTotalObtenus;
 	private int actuel;
+	private int admis;
 	
 	@OneToMany(mappedBy = "etudiant", cascade = CascadeType.REMOVE)
 	private Set<ModelEtudiant> etudiant;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_campus", nullable = false)
+	private ModelCampus campus;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_annee_scolaire", nullable = false)
+	private ModelAnneeScolaire anneeScolaire;
 	
 	public ModelEtudiant() {
 		super();
 	}
 
-	public ModelEtudiant(Long idEtudiant, ModelContrat contrat, ModelPersonne personne, ModelNiveau niveau, ModelSpecialite specialite, ModelTypeFormation typeFormation, Date debutAnneeScolaire, Date finAnneeScolaire, double creditTotalObtenus, int actuel) {
+	public ModelEtudiant(Long idEtudiant, ModelContrat contrat, ModelPersonne personne, ModelNiveau niveau, ModelSpecialite specialite, ModelTypeFormation typeFormation, double creditTotalObtenus, int actuel, ModelCampus campus, ModelAnneeScolaire anneeScolaire, int admis) {
 		super();
 		this.idEtudiant = idEtudiant;
 		this.contrat = contrat;
@@ -59,10 +66,11 @@ public class ModelEtudiant {
 		this.niveau = niveau;
 		this.specialite = specialite;
 		this.typeFormation = typeFormation;
-		this.debutAnneeScolaire = debutAnneeScolaire;
-		this.finAnneeScolaire = finAnneeScolaire;
 		this.creditTotalObtenus = creditTotalObtenus;
 		this.actuel = actuel;
+		this.campus = campus;
+		this.anneeScolaire = anneeScolaire;
+		this.admis = admis;
 	}
 
 	public Long getIdEtudiant() {
@@ -113,22 +121,6 @@ public class ModelEtudiant {
 		this.typeFormation = typeFormation;
 	}
 
-	public Date getDebutAnneeScolaire() {
-		return debutAnneeScolaire;
-	}
-
-	public void setDebutAnneeScolaire(Date debutAnneeScolaire) {
-		this.debutAnneeScolaire = debutAnneeScolaire;
-	}
-
-	public Date getFinAnneeScolaire() {
-		return finAnneeScolaire;
-	}
-
-	public void setFinAnneeScolaire(Date finAnneeScolaire) {
-		this.finAnneeScolaire = finAnneeScolaire;
-	}
-
 	public double getCreditTotalObtenus() {
 		return creditTotalObtenus;
 	}
@@ -143,6 +135,30 @@ public class ModelEtudiant {
 
 	public void setActuel(int actuel) {
 		this.actuel = actuel;
+	}
+
+	public ModelCampus getCampus() {
+		return campus;
+	}
+
+	public void setCampus(ModelCampus campus) {
+		this.campus = campus;
+	}
+
+	public ModelAnneeScolaire getAnneeScolaire() {
+		return anneeScolaire;
+	}
+
+	public void setAnneeScolaire(ModelAnneeScolaire anneeScolaire) {
+		this.anneeScolaire = anneeScolaire;
+	}
+
+	public int getAdmis() {
+		return admis;
+	}
+
+	public void setAdmis(int admis) {
+		this.admis = admis;
 	}
 	
 }

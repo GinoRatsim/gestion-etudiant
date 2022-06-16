@@ -41,7 +41,6 @@ export default function Niveau(props) {
 				'http://localhost:8080/addNiveau',
 				JSON.stringify(
 					{
-						"idAcces": 0,
 						"codeNiveau": code,
 						"libelleNiveau": libelle
 					}
@@ -49,8 +48,9 @@ export default function Niveau(props) {
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

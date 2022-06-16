@@ -37,15 +37,15 @@ export default function NaturePartenariat(props) {
 				'http://localhost:8080/addNaturePartenariat',
 				JSON.stringify(
 					{
-						"idNaturePartenariat": 0,
 						"libelleNaturePartenariat": libelle
 					}
 				),
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

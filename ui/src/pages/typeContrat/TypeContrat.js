@@ -37,15 +37,15 @@ export default function TypeContrat(props) {
 				'http://localhost:8080/addTypeContrat',
 				JSON.stringify(
 					{
-						"idTypeContrat": 0,
 						"libelleTypeContrat": libelle
 					}
 				),
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

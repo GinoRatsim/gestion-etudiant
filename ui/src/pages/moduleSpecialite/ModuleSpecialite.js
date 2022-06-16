@@ -41,7 +41,6 @@ export default function ModuleSpecialite(props) {
 				'http://localhost:8080/addModuleSpecialite',
 				JSON.stringify(
 					{
-						"idModuleSpecialite": 0,
 						"specialite": {
 							"idSpecialite": spec,
 						},
@@ -53,8 +52,9 @@ export default function ModuleSpecialite(props) {
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

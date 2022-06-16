@@ -39,10 +39,13 @@ if (localStorage.getItem('id_token') === "ADMIN") {
     { id: 11, label: "Gestion des groupes", link: "/app/groupe", icon: <Home /> },
     { id: 12, label: "Gestion des entreprise", link: "/app/entreprise", icon: <Home /> },
     { id: 13, label: "Gestion des modules & spécialités", link: "/app/modSpec", icon: <Home /> },
-    { id: 14, label: "Liste des campus", link: "/app/campus", icon: <Home /> },
+    { id: 14, label: "Gestion des campus", link: "/app/campus", icon: <Home /> },
     { id: 15, label: "Gestion des étudiants", link: "/app/etudiant", icon: <Home /> },
     { id: 16, label: "Gestion des contrats", link: "/app/contrat", icon: <Home /> },
     { id: 17, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
+    { id: 18, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
+    { id: 19, label: "Liste des anciens étudiants", link: "/app/suiviAnciens", icon: <Home /> },
+    { id: 20, label: "Gestion des suivi des absences", link: "/app/suiviAbsences", icon: <Home /> },
   ];
 }
 
@@ -52,8 +55,9 @@ if (localStorage.getItem('id_token') === "DA") {
     { id: 1, label: "Liste des étudiants", link: "/app/listeEtudiant", icon: <Home /> },
     { id: 2, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <Home /> },
     { id: 3, label: "Liste des étudiants pour les rattrapages", link: "/app/listeEtudiantRattrapage", icon: <Home /> },
-    { id: 4, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
-    { id: 5, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
+    { id: 4, label: "Liste des anciens étudiants", link: "/app/suiviAnciens", icon: <Home /> },
+    { id: 5, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
+    { id: 6, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
   ];
 }
 
@@ -66,6 +70,7 @@ if (localStorage.getItem('id_token') === "P") {
     { id: 4, label: "Entreprise : alternants/stages", link: "/app/entrepriseAltStage", icon: <Home /> },
     { id: 5, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
     { id: 6, label: "Envoi des mail par promo", link: "/app/envoiMailPromo", icon: <Home /> },
+    { id: 7, label: "Gestion des suivi des absences", link: "/app/suiviAbsences", icon: <Home /> },
   ];
 }
 
@@ -81,6 +86,8 @@ if (localStorage.getItem('id_token') === "E") {
     { id: 1, label: "Liste des cours", link: "/app/module", icon: <Home /> },
     { id: 2, label: "Liste des offres pro", link: "/app/offresPro", icon: <Home /> },
     { id: 3, label: "Liste des rattrapages", link: "/app/planificationCours", icon: <Home /> },
+    { id: 4, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <Home /> },
+    { id: 5, label: "Fiche d'étudiant", link: "/app/ficheEtudiant/" + localStorage.getItem('idPersonne'), icon: <Home /> },
   ];
 }
 

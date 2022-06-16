@@ -30,15 +30,18 @@ export default function ListeEtudiantRattrapage(props) {
 			)
 	}, [])
 	donnee.forEach(function(item, i) {
-		datatableData[i] = [
-			item.etudiant.personne.identifiant,
-			item.etudiant.personne.nom,
-			item.etudiant.personne.prenoms,
-			item.module.libelleModule,
-			item.notes,
-			item.etudiant.contrat.typeContrat.libelleTypeContrat,
-			item.etudiant.idEtudiant
-		];
+		console.log(item.etudiant.actuel)
+		if (item.etudiant.actuel === 1) {
+			datatableData[i] = [
+				item.etudiant.personne.identifiant,
+				item.etudiant.personne.nom,
+				item.etudiant.personne.prenoms,
+				item.module.libelleModule,
+				item.notes,
+				item.etudiant.contrat.typeContrat.libelleTypeContrat,
+				item.etudiant.idEtudiant
+			];
+		}
 	});
 
 	function voirDetail(history, idEtudiant) {

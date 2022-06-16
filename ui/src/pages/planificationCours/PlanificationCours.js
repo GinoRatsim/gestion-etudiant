@@ -100,14 +100,15 @@ export default function PlanificationCours(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
 			else {
 				axios.post(
 					'http://localhost:8080/addPlanificationCours',
 					JSON.stringify(
 						{
-							"idPlanification": 0,
 							"dateHeureDebutPlanification": dateHeureDebutPlanification,
 							"dateHeureFinPlanification": dateHeureFinPlanification,
 							"estConfirme": estConfirme,
@@ -122,9 +123,10 @@ export default function PlanificationCours(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
-			window.location.reload(false);
 		}
 		catch (err) {
 
@@ -236,12 +238,12 @@ export default function PlanificationCours(props) {
 						</div>
 					) : (
 						<div>
-						<PageTitle title="Liste des planification" />
+							<PageTitle title="Liste des planification" />
 							<Grid container spacing={4}>
 								<Grid item xs={12}>
 									<MUIDataTable
 										data={datatableData}
-										columns={[ "DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE" ]}
+										columns={["DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE"]}
 										options={{
 											selectableRows: 'none'
 										}}

@@ -39,7 +39,6 @@ export default function Specialite(props) {
 				'http://localhost:8080/addSpecialite',
 				JSON.stringify(
 					{
-						"idSpecialite": 0,
 						"codeSpecialite": code,
 						"libelleSpecialite": libelle
 					}
@@ -47,8 +46,9 @@ export default function Specialite(props) {
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

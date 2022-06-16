@@ -30,7 +30,9 @@ export default function ListeEtudiant(props) {
 			)
 	}, [])
 	donnee.forEach(function(item, i) {
-		datatableData[i] = [item.personne.identifiant, item.personne.nom, item.personne.prenoms, item.specialite.libelleSpecialite, item.typeFormation.libelleTypeFormation, item.contrat.typeContrat.libelleTypeContrat, item.niveau.libelleNiveau, item.idEtudiant]
+		if (item.actuel === 1) {
+			datatableData[i] = [item.personne.identifiant, item.personne.nom, item.personne.prenoms, item.specialite.libelleSpecialite, item.typeFormation.libelleTypeFormation, item.contrat.typeContrat.libelleTypeContrat, item.niveau.libelleNiveau, item.idEtudiant]
+		}
 	});
 
 	function voirDetail(history, idEtudiant) {

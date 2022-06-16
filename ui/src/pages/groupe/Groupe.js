@@ -37,15 +37,15 @@ export default function Groupe(props) {
 				'http://localhost:8080/addGroupe',
 				JSON.stringify(
 					{
-						"idGroupe": 0,
 						"nomGroupe": nom
 					}
 				),
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

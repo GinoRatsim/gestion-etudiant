@@ -100,14 +100,15 @@ export default function Partenariat(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
 			else {
 				axios.post(
 					'http://localhost:8080/addPartenariats',
 					JSON.stringify(
 						{
-							"idPartenariats": 0,
 							"dateDebutPartenariat": dateDebutPartenariat,
 							"dateFinPartenariat": dateFinPartenariat,
 							"description": description,
@@ -121,9 +122,10 @@ export default function Partenariat(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
-			window.location.reload(false);
 		}
 		catch (err) {
 

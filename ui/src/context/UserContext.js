@@ -73,6 +73,7 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 				localStorage.setItem('userName', response.data.result.user)
 				localStorage.setItem('userType', response.data.result.accesModel.libelleAcces)
 				localStorage.setItem('nomPrenom', response.data.result.personne.prenoms+" "+response.data.result.personne.nom)
+				localStorage.setItem('idPersonne', response.data.result.personne.idPersonne)
 				setError(null)
 				setIsLoading(false)
 				dispatch({ type: 'LOGIN_SUCCESS' })
@@ -96,6 +97,7 @@ function signOut(dispatch, history) {
 	localStorage.removeItem("userName")
 	localStorage.removeItem("userType")
 	localStorage.removeItem("nomPrenom")
+	localStorage.removeItem("idPersonne")
 	dispatch({ type: "SIGN_OUT_SUCCESS" })
 	history.push("/login")
 }

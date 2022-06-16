@@ -49,7 +49,7 @@ export default function OffresPro(props) {
 			)
 	}, [])
 	donnee.forEach(function(item, i) {
-		datatableData[i] = [item.entreprise.nomEntreprise, item.typeContrat.libelleTypeContrat, item.libelleLong, item.fichierOffre, item.description, item.idOffresPro]
+		datatableData[i] = [item.entreprise.nomEntreprise, item.typeContrat.libelleTypeContrat, item.libelleLong, item.fichierOffre, item.idOffresPro]
 	});
 
 	const entrepriseRef = useRef();
@@ -88,8 +88,9 @@ export default function OffresPro(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
-				window.location.reload(false);
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
 			else {
 				axios.post(
@@ -110,8 +111,9 @@ export default function OffresPro(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
-				window.location.reload(false);
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
 		}
 		catch (err) {
@@ -261,7 +263,7 @@ export default function OffresPro(props) {
 									<MUIDataTable
 										data={datatableData}
 										columns={[
-											"ENTREPRISE", "TYPE DE CONTRAT", "LIBELLE", "OFFRE", "DESCRIPTION",
+											"ENTREPRISE", "TYPE DE CONTRAT", "LIBELLE", "OFFRE",
 											{
 												name: "",
 												options: {
@@ -301,7 +303,7 @@ export default function OffresPro(props) {
 									<MUIDataTable
 										data={datatableData}
 										columns={[
-											"ENTREPRISE", "TYPE DE CONTRAT", "LIBELLE", "OFFRE", "DESCRIPTION",
+											"ENTREPRISE", "TYPE DE CONTRAT", "LIBELLE", "OFFRE",
 											{
 												name: "",
 												options: {

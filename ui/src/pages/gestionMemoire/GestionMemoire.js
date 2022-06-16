@@ -58,7 +58,7 @@ export default function GestionMemoire(props) {
 					'http://localhost:8080/addMemoire',
 					JSON.stringify(
 						{
-							"idCampus": idMemoire,
+							"idMemoire": idMemoire,
 							"aSoutenance": aSoutenance,
 							"estObligatoire": estObligatoire,
 							"estValide": estValide,
@@ -69,15 +69,15 @@ export default function GestionMemoire(props) {
 					{
 						headers: { 'Content-Type': 'application/json' }
 					}
-				)
-				window.location.reload(false);
+				).then(res => {
+					window.location.reload(false);
+				})
 			}
-			else{
+			else {
 				axios.post(
 					'http://localhost:8080/addMemoire',
 					JSON.stringify(
 						{
-							"idCampus": 0,
 							"aSoutenance": aSoutenance,
 							"estObligatoire": estObligatoire,
 							"estValide": estValide,
@@ -133,7 +133,7 @@ export default function GestionMemoire(props) {
 
 	return (
 		<>
-			{localStorage.getItem('id_token') === "DA" ? (
+			{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "DA" ? (
 				<div>
 					<PageTitle title="Ajouter une mémoire de fin de cycle" />
 					<form onSubmit={add}>

@@ -53,7 +53,6 @@ export default function Entreprise(props) {
 				'http://localhost:8080/addEntreprise',
 				JSON.stringify(
 					{
-						"idGroupe": 0,
 						"nomEntreprise": nomEntreprise,
 						"secteurActiviteEntreprise": secteurActiviteEntreprise,
 						"adresseEntreprise": adresseEntreprise,
@@ -67,8 +66,9 @@ export default function Entreprise(props) {
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

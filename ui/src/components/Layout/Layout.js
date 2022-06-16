@@ -40,6 +40,8 @@ import ListeEtudiantRattrapage from "../../pages/listeEtudiantRattrapage";
 import GestionMemoire from "../../pages/gestionMemoire";
 import EntrepriseAltStage from "../../pages/entrepriseAltStage";
 import EnvoiMailPromo from "../../pages/envoiMailPromo";
+import SuiviAnciens from "../../pages/suiviAnciens";
+import SuiviAbsences from "../../pages/suiviAbsences";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -88,6 +90,8 @@ function Layout(props) {
             <Route path="/app/gestionMemoire" component={GestionMemoire} />
             <Route path="/app/entrepriseAltStage" component={EntrepriseAltStage} />
             <Route path="/app/envoiMailPromo" component={EnvoiMailPromo} />
+            <Route path="/app/suiviAnciens" component={SuiviAnciens} />
+            <Route path="/app/suiviAbsences" component={SuiviAbsences} />
           </Switch>
         </div>
       </>

@@ -10,3 +10,12 @@
 .btn-sup{
     background-color: rgba(83, 109, 254, 1);
 }
+
+/*.MuiIconButton-label{
+	display: none !important;
+}*/
+
+.dash{
+	width: 99%;
+	margin: auto;
+}

@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ge.model.ModelContrat;
-import ge.repository.RepositoryContrat;
+import ge.model.ModelAnneeScolaire;
+import ge.repository.RepositoryAnneeScolaire;
 import ge.utils.ResponseHandler;
 
 @RestController
 @CrossOrigin(origins = { "*" }, maxAge = 4800, allowCredentials = "false")
-public class ControllerContrat {
+public class ControllerAnneeScolaire {
 
-	private final RepositoryContrat repository;
+	private final RepositoryAnneeScolaire repository;
 	ResponseHandler responseHandler = new ResponseHandler();
 
-	ControllerContrat(RepositoryContrat repository) {
+	ControllerAnneeScolaire(RepositoryAnneeScolaire repository) {
 		this.repository = repository;
 	}
 
-	@GetMapping("/allContrat")
+	@GetMapping("/allAnneeScolaire")
 	ResponseEntity<Object> all() {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.findAll());
@@ -32,27 +32,9 @@ public class ControllerContrat {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
-	
-	@GetMapping("/contratDispoMemoire")
-	ResponseEntity<Object> contratDispoMemoire() {
-		try {
-			return responseHandler.generateResponse(HttpStatus.OK, repository.contratDispoMemoire());
-		} catch (Exception e) {
-			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
-		}
-	}
-	
-	@GetMapping("/contratDispoEtudiant")
-	ResponseEntity<Object> contratDispoEtudiant() {
-		try {
-			return responseHandler.generateResponse(HttpStatus.OK, repository.contratDispoEtudiant());
-		} catch (Exception e) {
-			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
-		}
-	}
 
-	@PostMapping("/addContrat")
-	ResponseEntity<Object> add(@RequestBody ModelContrat model) {
+	@PostMapping("/addAnneeScolaire")
+	ResponseEntity<Object> add(@RequestBody ModelAnneeScolaire model) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.save(model));
 		} catch (Exception e) {
@@ -60,7 +42,7 @@ public class ControllerContrat {
 		}
 	}
 
-	@GetMapping("/oneContrat/{id}")
+	@GetMapping("/oneAnneeScolaire/{id}")
 	ResponseEntity<Object> one(@PathVariable Long id) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.findById(id));
@@ -69,7 +51,7 @@ public class ControllerContrat {
 		}
 	}
 
-	@GetMapping("/deleteContrat/{id}")
+	@GetMapping("/deleteAnneeScolaire/{id}")
 	ResponseEntity<Object> delete(@PathVariable Long id) {
 		try {
 			repository.deleteById(id);
@@ -79,21 +61,12 @@ public class ControllerContrat {
 		}
 	}
 	
-	@PostMapping("/updateContrat")
-	ResponseEntity<Object> update(@RequestBody ModelContrat model) {
+	@PostMapping("/updateAnneeScolaire")
+	ResponseEntity<Object> update(@RequestBody ModelAnneeScolaire model) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK,
-					repository.findById(model.getIdContrat()).map(newModel -> {
-						newModel.setEntreprise(model.getEntreprise());
-						newModel.setTypeContrat(model.getTypeContrat());
-						newModel.setDureeContrat(model.getDureeContrat());
-						newModel.setNomPrenomEncadreur(model.getNomPrenomEncadreur());
-						newModel.setTelephoneEncadreur(model.getTelephoneEncadreur());
-						newModel.setAdresseEmailEncadreur(model.getAdresseEmailEncadreur());
-						newModel.setDateDebutContrat(model.getDateDebutContrat());
-						newModel.setDateFinContrat(model.getDateFinContrat());
-						newModel.setFichierContrat(model.getFichierContrat());
-						newModel.setFichierConvention(model.getFichierConvention());
+					repository.findById(model.getIdAnneeScolaire()).map(newModel -> {
+						newModel.setAnnee(model.getAnnee());
 						return responseHandler.generateResponse(HttpStatus.NOT_FOUND, repository.save(newModel));
 					}));
 		} catch (Exception e) {

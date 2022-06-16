@@ -33,17 +33,6 @@ export default function EnvoiMailPromo(props) {
 		datatableData[i] = [item.codeNiveau, item.libelleNiveau, item.idNiveau]
 	});
 
-	const [etudiant, setEtudiant] = useState([]);
-	useEffect(() => {
-		fetch("http://localhost:8080/allEtudiant")
-			.then(res => res.json())
-			.then(
-				(data) => {
-					setEtudiant(data.result);
-				}
-			)
-	}, [])
-
 	const [adresse, setAdresse] = useState([]);
 	function envoiMail(id) {
 		fetch("http://localhost:8080/getAdresseEmailByNiveau/" + id)

@@ -48,7 +48,6 @@ export default function Module(props) {
 				'http://localhost:8080/addModule',
 				JSON.stringify(
 					{
-						"idModule": 0,
 						"codeModule": code,
 						"libelleModule": libelle,
 						"estObligatoire": obligatoire,
@@ -61,8 +60,9 @@ export default function Module(props) {
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}
-			)
-			window.location.reload(false);
+			).then(res => {
+				window.location.reload(false);
+			})
 		}
 		catch (err) {
 

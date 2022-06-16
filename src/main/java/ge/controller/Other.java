@@ -46,5 +46,32 @@ public class Other {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
+	
+	@GetMapping("/nombreEtudiantByCampus")
+	ResponseEntity<Object> nombreEtudiantByCampus() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repositoryEtudiant.getNombreEtudiantByCampus());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/nombreAnciensByTypeContrat")
+	ResponseEntity<Object> nombreAnciensByTypeContrat() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repositoryEtudiant.getNombreAnciensParTypeContrat());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/nombreEtudiantBySpecialite")
+	ResponseEntity<Object> nombreEtudiantBySpecialite() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repositoryEtudiant.getNombreEtudiantBySpecialite());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
 
 }
