@@ -46,6 +46,7 @@ if (localStorage.getItem('id_token') === "ADMIN") {
     { id: 18, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
     { id: 19, label: "Liste des anciens étudiants", link: "/app/suiviAnciens", icon: <Home /> },
     { id: 20, label: "Gestion des suivi des absences", link: "/app/suiviAbsences", icon: <Home /> },
+    { id: 20, label: "Suivi comptable", link: "/app/suiviComptable", icon: <Home /> },
   ];
 }
 

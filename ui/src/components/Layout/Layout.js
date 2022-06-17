@@ -42,6 +42,7 @@ import EntrepriseAltStage from "../../pages/entrepriseAltStage";
 import EnvoiMailPromo from "../../pages/envoiMailPromo";
 import SuiviAnciens from "../../pages/suiviAnciens";
 import SuiviAbsences from "../../pages/suiviAbsences";
+import SuiviComptable from "../../pages/suiviComptable";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -92,6 +93,7 @@ function Layout(props) {
             <Route path="/app/envoiMailPromo" component={EnvoiMailPromo} />
             <Route path="/app/suiviAnciens" component={SuiviAnciens} />
             <Route path="/app/suiviAbsences" component={SuiviAbsences} />
+            <Route path="/app/suiviComptable" component={SuiviComptable} />
           </Switch>
         </div>
       </>
