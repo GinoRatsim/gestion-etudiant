@@ -141,19 +141,29 @@ export default function Charts(props) {
 					setListeAnneeScolaire(data.result);
 				}
 			)
-	}, [])	
-	
-	const [tauxReussiteEchec, setTauxReussiteEchec] = useState([]);
+	}, [])
+
+	const [reussite, setReussite] = useState([]);
 	useEffect(() => {
-		fetch("http://localhost:8080/getTauxReussiteEchec")
+		fetch("http://localhost:8080/getTauxReussite")
 			.then(res => res.json())
 			.then(
 				(data) => {
-					setTauxReussiteEchec(data.result);
-					console.log('REPONSE : \n' + data.result)
+					setReussite(data.result);
 				}
 			)
-	}, [])	
+	}, [])
+	
+	const [echec, setEchec] = useState([]);
+	useEffect(() => {
+		fetch("http://localhost:8080/getTauxEchec")
+			.then(res => res.json())
+			.then(
+				(data) => {
+					setEchec(data.result);
+				}
+			)
+	}, [])
 
 	const tauxReussite = [
 		{
@@ -175,30 +185,73 @@ export default function Charts(props) {
 			M2: 0
 		}
 	];
-	var L1 = 1, L2 = 2, L3 = 3, M1 = 4, M2 = 5;
 
-	listeAnneeScolaire.forEach(function(item, i) {
+	reussite.forEach(function(item, i) {
+		var annee = reussite[i].anneeScolaire;
+		var L1 = 0;
+		var L2 = 0;
+		var L3 = 0;
+		var M1 = 0;
+		var M2 = 0;
+		
+		if(reussite[i].l1){
+			L1 = reussite[i].l1[2] * 100 / reussite[i].l1[1]
+		}
+		if(reussite[i].l2){
+			L2 = reussite[i].l2[2] * 100 / reussite[i].l2[1]
+		}
+		if(reussite[i].l3){
+			L3 = reussite[i].l3[2] * 100 / reussite[i].l3[1]
+		}
+		if(reussite[i].m1){
+			M1 = reussite[i].m1[2] * 100 / reussite[i].m1[1]
+		}
+		if(reussite[i].m2){
+			M2 = reussite[i].m2[2] * 100 / reussite[i].m2[1]
+		}
+		
 		tauxReussite[i + 1] = {
-			name: item.annee,
+			name: annee,
 			L1: L1,
 			L2: L2,
 			L3: L3,
 			M1: M1,
 			M2: M2
 		}
+	});
+	
+	echec.forEach(function(item, i) {
+		var annee = echec[i].anneeScolaire;
+		var L1 = 0;
+		var L2 = 0;
+		var L3 = 0;
+		var M1 = 0;
+		var M2 = 0;
+		
+		if(echec[i].l1){
+			L1 = echec[i].l1[2] * 100 / echec[i].l1[1]
+		}
+		if(echec[i].l2){
+			L2 = echec[i].l2[2] * 100 / echec[i].l2[1]
+		}
+		if(echec[i].l3){
+			L3 = echec[i].l3[2] * 100 / echec[i].l3[1]
+		}
+		if(echec[i].m1){
+			M1 = echec[i].m1[2] * 100 / echec[i].m1[1]
+		}
+		if(echec[i].m2){
+			M2 = echec[i].m2[2] * 100 / echec[i].m2[1]
+		}
+		
 		tauxEchec[i + 1] = {
-			name: item.annee,
+			name: annee,
 			L1: L1,
 			L2: L2,
 			L3: L3,
 			M1: M1,
 			M2: M2
 		}
-		L1 += 0.5;
-		L2 += 0.5;
-		L3 += 0.5;
-		M1 += 0.5;
-		M2 += 0.5;
 	});
 
 	return (

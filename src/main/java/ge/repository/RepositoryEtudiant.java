@@ -33,13 +33,13 @@ public interface RepositoryEtudiant extends JpaRepository<ge.model.ModelEtudiant
 	List<ModelEtudiant> getEtudiantsActuel();
 	
 	//Pour les taux de réussite
-	@Query(value = "SELECT niveau.code_niveau, niveau.libelle_niveau, count(*) FROM etudiant JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND id_annee_scolaire=? GROUP BY niveau.id_niveau;", nativeQuery = true)
+	@Query(value = "SELECT annee_scolaire.annee, niveau.code_niveau, count(*) FROM etudiant JOIN annee_scolaire ON annee_scolaire.id_annee_scolaire = etudiant.id_annee_scolaire JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND etudiant.id_annee_scolaire=? GROUP BY niveau.id_niveau;", nativeQuery = true)
 	List<Object[]> getTotalParNiveau(Long id);
 
-	@Query(value = "SELECT niveau.code_niveau, niveau.libelle_niveau, count(*) FROM etudiant JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND id_annee_scolaire=? AND admis = 1 GROUP BY niveau.id_niveau;", nativeQuery = true)
+	@Query(value = "SELECT annee_scolaire.annee, niveau.code_niveau, count(*) FROM etudiant JOIN annee_scolaire ON annee_scolaire.id_annee_scolaire = etudiant.id_annee_scolaire JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND etudiant.id_annee_scolaire=? AND admis = 1 GROUP BY niveau.id_niveau;", nativeQuery = true)
 	List<Object[]> getTotalParAdmis(Long id);
 	
-	@Query(value = "SELECT niveau.code_niveau, niveau.libelle_niveau, count(*) FROM etudiant JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND id_annee_scolaire=? AND admis = 0 GROUP BY niveau.id_niveau;", nativeQuery = true)
+	@Query(value = "SELECT annee_scolaire.annee, niveau.code_niveau, count(*) FROM etudiant JOIN annee_scolaire ON annee_scolaire.id_annee_scolaire = etudiant.id_annee_scolaire JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND etudiant.id_annee_scolaire=? AND admis = 0 GROUP BY niveau.id_niveau;", nativeQuery = true)
 	List<Object[]> getTotalParNonAdmis(Long id);
 	
 }

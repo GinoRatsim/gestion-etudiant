@@ -1,5 +1,6 @@
 package ge.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import ge.model.ModelEtudiant;
 import ge.model.ModelLogin;
 import ge.model.ModelPEAL;
 import ge.model.ModelPersonne;
+import ge.model.ModelReussite;
 import ge.repository.RepositoryAcces;
 import ge.repository.RepositoryAdresse;
 import ge.repository.RepositoryAnneeScolaire;
@@ -56,10 +58,19 @@ public class ControllerEtudiant<E> {
 		this.repositoryAnneeScolaire = repositoryAnneeScolaire;
 	}
 
-	@GetMapping("/getTauxReussiteEchec")
-	ResponseEntity<Object> getTauxReussiteEchec() {
+	@GetMapping("/getTauxReussite")
+	ResponseEntity<Object> getTauxReussite() {
 		try {
-			return responseHandler.generateResponse(HttpStatus.OK, tauxReussiteEchec());
+			return responseHandler.generateResponse(HttpStatus.OK, tauxReussite());
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/getTauxEchec")
+	ResponseEntity<Object> getTauxEchec() {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, tauxEchec());
 		} catch (Exception e) {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
@@ -159,22 +170,118 @@ public class ControllerEtudiant<E> {
 		}
 	}
 
-	public List<Object[]> tauxReussiteEchec() {
-		List<Object[]> rep = new ArrayList<Object[]>();
+	public List<ModelReussite> tauxReussite() {
+		List<ModelReussite> rep = new ArrayList<ModelReussite>();
 
 		List<ModelAnneeScolaire> anneeScolaire = repositoryAnneeScolaire.findAll();
 		
-		List<Object[]> totalNiveau = repositoryEtudiant.getTotalParNiveau(2L);
-		List<Object[]> totalAdmis = repositoryEtudiant.getTotalParAdmis(2L);
-		List<Object[]> totalNonAdmis = repositoryEtudiant.getTotalParNonAdmis(2L);
+		for(ModelAnneeScolaire annee : anneeScolaire){
+			ModelReussite e = new ModelReussite();
+			Object[] L1 = new Object[3];
+			Object[] L2 = new Object[3];
+			Object[] L3 = new Object[3];
+			Object[] M1 = new Object[3];
+			Object[] M2 = new Object[3];
+			
+			e.setAnneeScolaire(annee.getAnnee());
 
-		for (Object[] niv : totalNiveau) {
-			for(Object[] adm : totalAdmis) {
-				if(niv[0].equals(adm[0])) {
-
+			List<Object[]> totalNiveau = repositoryEtudiant.getTotalParNiveau(annee.getIdAnneeScolaire());
+			List<Object[]> totalAdmis = repositoryEtudiant.getTotalParAdmis(annee.getIdAnneeScolaire());
+			for(Object[] tNiveau: totalNiveau){
+				for(Object[] tAdmis: totalAdmis){
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("L1")) {
+						L1[0] = tNiveau[1];
+						L1[1] = tNiveau[2];
+						L1[2] = tAdmis[2];
+						e.setL1(L1);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("L2")) {
+						L2[0] = tNiveau[1];
+						L2[1] = tNiveau[2];
+						L2[2] = tAdmis[2];
+						e.setL2(L2);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("L3")) {
+						L3[0] = tNiveau[1];
+						L3[1] = tNiveau[2];
+						L3[2] = tAdmis[2];
+						e.setL3(L3);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("M1")) {
+						M1[0] = tNiveau[1];
+						M1[1] = tNiveau[2];
+						M1[2] = tAdmis[2];
+						e.setM1(M1);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("M2")) {
+						M2[0] = tNiveau[1];
+						M2[1] = tNiveau[2];
+						M2[2] = tAdmis[2];
+						e.setM2(M2);
+					}
 				}
 			}
-		}
+			rep.add(e);
+			
+		};
+		
+		return rep;
+	}
+	
+	public List<ModelReussite> tauxEchec() {
+		List<ModelReussite> rep = new ArrayList<ModelReussite>();
+
+		List<ModelAnneeScolaire> anneeScolaire = repositoryAnneeScolaire.findAll();
+		
+		for(ModelAnneeScolaire annee : anneeScolaire){
+			ModelReussite e = new ModelReussite();
+			Object[] L1 = new Object[3];
+			Object[] L2 = new Object[3];
+			Object[] L3 = new Object[3];
+			Object[] M1 = new Object[3];
+			Object[] M2 = new Object[3];
+			
+			e.setAnneeScolaire(annee.getAnnee());
+
+			List<Object[]> totalNiveau = repositoryEtudiant.getTotalParNiveau(annee.getIdAnneeScolaire());
+			List<Object[]> totalNonAdmis = repositoryEtudiant.getTotalParNonAdmis(annee.getIdAnneeScolaire());
+			for(Object[] tNiveau: totalNiveau){
+				for(Object[] tAdmis: totalNonAdmis){
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("L1")) {
+						L1[0] = tNiveau[1];
+						L1[1] = tNiveau[2];
+						L1[2] = tAdmis[2];
+						e.setL1(L1);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("L2")) {
+						L2[0] = tNiveau[1];
+						L2[1] = tNiveau[2];
+						L2[2] = tAdmis[2];
+						e.setL2(L2);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("L3")) {
+						L3[0] = tNiveau[1];
+						L3[1] = tNiveau[2];
+						L3[2] = tAdmis[2];
+						e.setL3(L3);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("M1")) {
+						M1[0] = tNiveau[1];
+						M1[1] = tNiveau[2];
+						M1[2] = tAdmis[2];
+						e.setM1(M1);
+					}
+					if(tNiveau[0].equals(tAdmis[0]) && tNiveau[1].equals(tAdmis[1]) && tNiveau[1].equals("M2")) {
+						M2[0] = tNiveau[1];
+						M2[1] = tNiveau[2];
+						M2[2] = tAdmis[2];
+						e.setM2(M2);
+					}
+				}
+			}
+			rep.add(e);
+			
+		};
 		
 		return rep;
 	}
