@@ -132,17 +132,6 @@ export default function Charts(props) {
 		datatableDataAnciens[i] = { name: item[0], value: item[1], color: colorAnciens[i] }
 	});
 
-	const [listeAnneeScolaire, setListeAnneeScolaire] = useState([]);
-	useEffect(() => {
-		fetch("http://localhost:8080/allAnneeScolaire")
-			.then(res => res.json())
-			.then(
-				(data) => {
-					setListeAnneeScolaire(data.result);
-				}
-			)
-	}, [])
-
 	const [reussite, setReussite] = useState([]);
 	useEffect(() => {
 		fetch("http://localhost:8080/getTauxReussite")
