@@ -46,8 +46,7 @@ public class ControllerLogin {
 			ModelLogin login = modelPL.getLogin();
 
 			if (repositoryPersonne.save(personne) != null) {
-				ModelPersonne personneAdd = repositoryPersonne.getPersonne(personne.getIdentifiant(), personne.getNom(),
-						personne.getNomUsage(), personne.getPrenoms(), personne.getSexe());
+				ModelPersonne personneAdd = repositoryPersonne.getPersonne(personne.getIdentifiant(), personne.getNom(), personne.getNomUsage(), personne.getPrenoms(), personne.getSexe());
 				login.setPersonne(personneAdd);
 				repositoryLogin.save(login);
 			}

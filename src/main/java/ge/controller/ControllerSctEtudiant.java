@@ -9,22 +9,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ge.model.ModelComptabilite;
-import ge.repository.RepositoryComptabilite;
+import ge.model.ModelSctEtudiant;
+import ge.model.ModelTypeSct;
+import ge.repository.RepositorySctEtudiant;
+import ge.repository.RepositoryTypeSct;
 import ge.utils.ResponseHandler;
 
 @RestController
 @CrossOrigin(origins = { "*" }, maxAge = 4800, allowCredentials = "false")
-public class ControllerComptabilite {
-
-	private final RepositoryComptabilite repository;
+public class ControllerSctEtudiant {
+	
+	private final RepositorySctEtudiant repository;
 	ResponseHandler responseHandler = new ResponseHandler();
 
-	ControllerComptabilite(RepositoryComptabilite repository) {
+	ControllerSctEtudiant(RepositorySctEtudiant repository) {
 		this.repository = repository;
 	}
 
-	@GetMapping("/allComptabilite")
+	@GetMapping("/allSctEtudiant")
 	ResponseEntity<Object> all() {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.findAll());
@@ -32,18 +34,9 @@ public class ControllerComptabilite {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
-	
-	@GetMapping("/getComptaByEtudiant/{id}")
-	ResponseEntity<Object> getComptaByEtudiant(@PathVariable Long id) {
-		try {
-			return responseHandler.generateResponse(HttpStatus.OK, repository.getComptaByEtudiant(id));
-		} catch (Exception e) {
-			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
-		}
-	}
 
-	@PostMapping("/addComptabilite")
-	ResponseEntity<Object> add(@RequestBody ModelComptabilite model) {
+	@PostMapping("/addSctEtudiant")
+	ResponseEntity<Object> add(@RequestBody ModelSctEtudiant model) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.save(model));
 		} catch (Exception e) {
@@ -51,7 +44,7 @@ public class ControllerComptabilite {
 		}
 	}
 
-	@GetMapping("/oneComptabilite/{id}")
+	@GetMapping("/oneSctEtudiant/{id}")
 	ResponseEntity<Object> one(@PathVariable Long id) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.findById(id));
@@ -60,7 +53,7 @@ public class ControllerComptabilite {
 		}
 	}
 
-	@GetMapping("/deleteComptabilite/{id}")
+	@GetMapping("/deleteSctEtudiant/{id}")
 	ResponseEntity<Object> delete(@PathVariable Long id) {
 		try {
 			repository.deleteById(id);
@@ -70,16 +63,15 @@ public class ControllerComptabilite {
 		}
 	}
 	
-	@PostMapping("/updateComptabilite")
-	ResponseEntity<Object> update(@RequestBody ModelComptabilite model) {
+	@PostMapping("/updateSctEtudiant")
+	ResponseEntity<Object> update(@RequestBody ModelSctEtudiant model) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK,
-					repository.findById(model.getIdComptabilite()).map(newModel -> {
+					repository.findById(model.getIdSctEtudiant()).map(newModel -> {
 						newModel.setEtudiant(model.getEtudiant());
-						newModel.setComptaPaieType(model.getComptaPaieType());
-						newModel.setEstTotalementPayer(model.getEstTotalementPayer());
-						newModel.setComptaPayementDue(model.getComptaPayementDue());
-						newModel.setComptaRelance(model.getComptaRelance());
+						newModel.setTypeSct(model.getTypeSct());
+						newModel.setAnneeScolaire(model.getAnneeScolaire());
+						newModel.setValideCertification(model.getValideCertification());
 						return responseHandler.generateResponse(HttpStatus.NOT_FOUND, repository.save(newModel));
 					}));
 		} catch (Exception e) {

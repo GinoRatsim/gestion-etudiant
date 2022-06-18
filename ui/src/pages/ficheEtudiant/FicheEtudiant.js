@@ -1,10 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import PageTitle from "../../components/PageTitle";
 
 import Moment from 'moment';
 
-import jsPDF from 'jspdf'
+import jsPDF from 'jspdf';
+
+import Modal from 'react-modal';
+import axios from 'axios';
+
+const customStyles = {
+	content: {
+		top: '25%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		marginRight: '-50%',
+		transform: 'translate(-50%, -50%)',
+		width: '30%',
+	},
+};
+// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root');
+
 
 export default function FicheEtudiant(props) {
 
@@ -13,7 +31,6 @@ export default function FicheEtudiant(props) {
 	var moyenne = 0;
 	var nombreModule = 0;
 	var creditObtenu = 0;
-	var idEtudiant = 0;
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [etudiant, setEtudiant] = useState([]);
 	const [niveau, setNiveau] = useState([]);
@@ -42,8 +59,8 @@ export default function FicheEtudiant(props) {
 			)
 	}, [])
 
-	function genererBulletin(idNiveau, idEtudiant) {
-		
+	function genererBulletin(idNiveau, idEtudiant, nomA, prenoms) {
+
 		var doc = new jsPDF('p', 'pt')
 		doc.text(20, 50, 'BULLETIN DE NOTE')
 		doc.setFont('courier')
@@ -56,24 +73,24 @@ export default function FicheEtudiant(props) {
 		etudiant[3].map(
 			rep => (
 				rep.module.niveau.idNiveau === idNiveau ? (
-					nom=rep.etudiant.personne.prenoms + " " + rep.etudiant.personne.nom,
-					niveau=rep.module.niveau.libelleNiveau,
+					nom = rep.etudiant.personne.prenoms + " " + rep.etudiant.personne.nom,
+					niveau = rep.module.niveau.libelleNiveau,
 					doc.text(30, ligneNote, rep.module.libelleModule + " : " + rep.notes),
 					taille += 1,
 					totalNotes += rep.notes,
 					ligneNote += 20
 				) : (
-					""	
+					""
 				)
 			)
 		)
 
-		doc.text(20, ligneNote+5, 'Moyenne : ' + totalNotes/taille)
+		doc.text(20, ligneNote + 5, 'Moyenne : ' + totalNotes / taille)
 		doc.text(20, 70, nom + ' - ' + niveau)
-		doc.save(idEtudiant+"-"+idNiveau+'.pdf');
+		doc.save('Bulletin' + prenoms + nom + idEtudiant + "-" + idNiveau + '.pdf');
 	}
-	
-	function genererAttestationReussite(idNiveau, idEtudiant){
+
+	function genererAttestationReussite(idNiveau, idEtudiant, nom, prenoms) {
 		var doc = new jsPDF('p', 'pt')
 		var nomEtudiant;
 		var niveau;
@@ -86,44 +103,179 @@ export default function FicheEtudiant(props) {
 
 		etudiant[3].map(
 			rep => (
-				nomEtudiant=rep.etudiant.personne.prenoms + " " + rep.etudiant.personne.nom,
+				nomEtudiant = rep.etudiant.personne.prenoms + " " + rep.etudiant.personne.nom,
 				rep.module.niveau.idNiveau === idNiveau ? (
-					niveau=rep.module.niveau.libelleNiveau,
+					niveau = rep.module.niveau.libelleNiveau,
 					taille += 1,
 					totalNotes += rep.notes
 				) : (
-					""	
+					""
 				)
 			)
 		)
 		doc.text(40, 125, nomEtudiant)
 		doc.text(20, 150, "est admise.")
 		doc.text(40, 200, "Niveau : " + niveau)
-		var moyenne = totalNotes/taille
+		var moyenne = totalNotes / taille
 		doc.text(40, 225, "Moyenne : " + moyenne)
-		console.log(moyenne)
-		if((moyenne === 10 || 10 < moyenne) && (moyenne < 12 || moyenne)) mention = "PASSABLE"
-		if((moyenne === 12 || 12 < moyenne) && (moyenne < 14 || moyenne)) mention = "ASSEZ BIEN"
-		if((moyenne === 14 || 14 < moyenne) && (moyenne < 16 || moyenne)) mention = "BIEN"
-		if((moyenne === 16 || 16 < moyenne) && (moyenne < 21 || moyenne)) mention = "TRES BIEN"
-		doc.text(40, 250, "Mention : " + mention)	
+		if ((moyenne === 10 || 10 < moyenne) && (moyenne < 12 || moyenne)) mention = "PASSABLE"
+		if ((moyenne === 12 || 12 < moyenne) && (moyenne < 14 || moyenne)) mention = "ASSEZ BIEN"
+		if ((moyenne === 14 || 14 < moyenne) && (moyenne < 16 || moyenne)) mention = "BIEN"
+		if ((moyenne === 16 || 16 < moyenne) && (moyenne < 21 || moyenne)) mention = "TRES BIEN"
+		doc.text(40, 250, "Mention : " + mention)
 		doc.text(20, 300, "En foi de quoi, la présente attestation lui est délivrée")
-		doc.text(20, 325, "pour servir et valoir ce que de droit.")			
-		
-		doc.save(idEtudiant+"-"+idNiveau+'.pdf');
+		doc.text(20, 325, "pour servir et valoir ce que de droit.")
+
+		doc.save('AttestationReussite' + prenoms + nom + idEtudiant + "-" + idNiveau + '.pdf');
 	}
+
+	const [listeModule, setListeModule] = useState([]);
+	function ajoutModifNote(idNiveau, idEtudiant) {
+		setIsOpen(true);
+		setEtudiantAdd(idEtudiant);
+		fetch("http://localhost:8080/allModuleByNiveau/" + idNiveau)
+			.then(res => res.json())
+			.then(
+				(data) => {
+					setListeModule(data.result);
+				}
+			)
+
+	}
+
+	const [modalIsOpen, setIsOpen] = React.useState(false);
+
+	function closeModal() {
+		setIsOpen(false);
+	}
+
+	const etudiantAddRef = useRef();
+	const moduleAddRef = useRef();
+	const notesAddRef = useRef();
+	const idNoteRef = useRef();
+
+	const [etudiantAdd, setEtudiantAdd] = useState('');
+	const [moduleAdd, setModuleAdd] = useState('');
+	const [notesAdd, setNotesAdd] = useState('');
+	const [idNote, setIdNote] = useState('');
+
+	const add = async (e) => {
+		e.preventDefault();
+		try {
+			var idNotes = document.getElementById('idNotes').value;
+			if (idNotes > 0) {
+				axios.post(
+					'http://localhost:8080/updateNotes',
+					JSON.stringify(
+						{
+							"idNotes": idNotes,
+							"notes": notesAdd,
+							"module": {
+								"idModule": moduleAdd
+							},
+							"etudiant": {
+								"idEtudiant": etudiantAdd
+							}
+						}
+					),
+					{
+						headers: { 'Content-Type': 'application/json' }
+					}
+				).then(res => {
+					window.location.reload(false);
+				})
+			} else {
+				axios.post(
+					'http://localhost:8080/addNotes',
+					JSON.stringify(
+						{
+							"notes": notesAdd,
+							"module": {
+								"idModule": moduleAdd
+							},
+							"etudiant": {
+								"idEtudiant": etudiantAdd
+							}
+						}
+					),
+					{
+						headers: { 'Content-Type': 'application/json' }
+					}
+				).then(res => {
+					window.location.reload(false);
+				})
+			}
+		}
+		catch (err) {
+
+		}
+	}
+
+	const handleChange = event => {
+		setModuleAdd(event.target.value);
+		fetch("http://localhost:8080/getByEtudiantModule/" + etudiantAdd + "/" + event.target.value)
+			.then(res => res.json())
+			.then(
+				(data) => {
+					if (data.result === null) {
+						document.getElementById('btn-ajout').innerText = "Ajouter";
+					} else {
+						setIdNote(data.result.idNotes);
+						setNotesAdd(data.result.notes);
+						document.getElementById('btn-ajout').innerText = "Modifier";
+					}
+				}
+			)
+	};
 
 	if (!isLoaded) {
 		return <div>Loading...</div>;
 	}
+	
+	console.log(localStorage.getItem('idPersonne'));
 
 	if (etudiant) {
-		idEtudiant = etudiant[0].idEtudiant;
 		return (
 			<>
 				{
-					localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" || localStorage.getItem('id_token') === "ADMIN" ? (
+					localStorage.getItem('id_token') === "DA" || localStorage.getItem('id_token') === "P" || localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('idEtudiant') === id ? (
 						<div>
+							<Modal
+								isOpen={modalIsOpen}
+								onRequestClose={closeModal}
+								style={customStyles}
+							>
+								<h1>AJOUTER/MODIFIER UNE NOTE</h1>
+								<div className='row'>
+									<div className='col-sm-12'>&nbsp;</div>
+								</div>
+								<form onSubmit={add}>
+									<div className='row'>
+										<div className='col-sm-6'>
+											<label>Module</label>
+											<select className='form-control' ref={moduleAddRef} onChange={(e) => setModuleAdd(e.target.value)} value={moduleAdd} onChange={handleChange}>
+												<option>--</option>
+												{listeModule.map(res => (
+													<option key={res.idModule} value={res.idModule}>{res.libelleModule}</option>
+												))}
+											</select>
+										</div>
+										<div className='col-sm-3'>
+											<label>Note</label>
+											<input type='number' min='0' max='20' className='form-control' ref={notesAddRef} onChange={(e) => setNotesAdd(e.target.value)} value={notesAdd} required />
+										</div>
+										<div className='col-sm-3'>
+											<label>
+												&nbsp;
+												<input type="hidden" id="idOffresPro" className='form-control' disabled />
+												<input type='hidden' id='idEtudiant' className='form-control' ref={etudiantAddRef} onChange={(e) => setEtudiantAdd(e.target.value)} value={etudiantAdd} disabled />
+												<input type='hidden' id='idNotes' className='form-control' ref={idNoteRef} onChange={(e) => setIdNote(e.target.value)} value={idNote} disabled />
+											</label>
+											<button className='btn btn-secondary btn-block btn-sup' id='btn-ajout'>Ajouter</button>
+										</div>
+									</div>
+								</form>
+							</Modal>
 							<PageTitle title="Fiche de l'étudiant" />
 							<div className='row'>
 								<div className='col-sm-4'>
@@ -289,11 +441,12 @@ export default function FicheEtudiant(props) {
 															<td colSpan='2'><b>Crédit obtenus</b></td>
 															<td><b>{creditObtenu}</b></td>
 														</tr>
+
 														{
-															moyenne > 0 && localStorage.getItem('id_token') === "DA" ? (
+															localStorage.getItem('id_token') === "ADMIN" ? (
 																<tr>
 																	<td colSpan='3'>
-																		<button className='btn btn-secondary btn-block' onClick={() => genererBulletin(res.idNiveau, idEtudiant)}>Générer le bulletin de note</button>
+																		<button className='btn btn-info btn-block' onClick={() => ajoutModifNote(res.idNiveau, etudiant[0].idEtudiant)}>Ajouter / modifier les notes</button>
 																	</td>
 																</tr>
 															) : (
@@ -302,12 +455,26 @@ export default function FicheEtudiant(props) {
 																</tr>
 															)
 														}
-														
+
 														{
-															moyenne > 0 && localStorage.getItem('id_token') === "DA" && moyenne/nombreModule >= 10 ? (
+															moyenne > 0 && (localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "DA") ? (
 																<tr>
 																	<td colSpan='3'>
-																		<button className='btn btn-secondary btn-block' onClick={() => genererAttestationReussite(res.idNiveau, idEtudiant)}>Générer l'attestation de réussite</button>
+																		<button className='btn btn-primary btn-block' onClick={() => genererBulletin(res.idNiveau, etudiant[0].idEtudiant, etudiant[0].personne.nom, etudiant[0].personne.prenoms)}>Générer le bulletin de note</button>
+																	</td>
+																</tr>
+															) : (
+																<tr>
+
+																</tr>
+															)
+														}
+
+														{
+															moyenne > 0 && (localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "DA") && moyenne / nombreModule >= 10 ? (
+																<tr>
+																	<td colSpan='3'>
+																		<button className='btn btn-success btn-block' onClick={() => genererAttestationReussite(res.idNiveau, etudiant[0].idEtudiant, etudiant[0].personne.nom, etudiant[0].personne.prenoms)}>Générer l'attestation de réussite</button>
 																	</td>
 																</tr>
 															) : (

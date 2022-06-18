@@ -148,7 +148,6 @@ export default function OffresPro(props) {
 		fetch("http://localhost:8080/oneOffresPro/" + id)
 			.then(async response => {
 				const data = await response.json();
-				console.log(data.result);
 				document.getElementById('descM').innerHTML = data.result.description;
 				document.getElementById('entrepriseM').innerHTML = data.result.entreprise.nomEntreprise;
 				document.getElementById('typeContratM').innerHTML = data.result.typeContrat.libelleTypeContrat;

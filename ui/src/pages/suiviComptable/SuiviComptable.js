@@ -43,7 +43,6 @@ export default function SuiviComptable(props) {
 			)
 	}, [])
 	donnee.forEach(function(item, i) {
-		console.log(item)
 		datatableData[i] = [
 			item.etudiant.personne.identifiant,
 			item.etudiant.personne.nom,

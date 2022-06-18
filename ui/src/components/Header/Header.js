@@ -3,7 +3,6 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  InputBase,
   Menu,
   MenuItem,
   Fab
@@ -11,7 +10,6 @@ import {
 import {
   Menu as MenuIcon,
   Person as AccountIcon,
-  Search as SearchIcon,
   Send as SendIcon,
   ArrowBack as ArrowBackIcon,
 } from "@material-ui/icons";
@@ -98,7 +96,6 @@ export default function Header(props) {
   var [mailMenu, setMailMenu] = useState(null);
   var [notificationsMenu, setNotificationsMenu] = useState(null);
   var [profileMenu, setProfileMenu] = useState(null);
-  var [isSearchOpen, setSearchOpen] = useState(false);
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -132,30 +129,10 @@ export default function Header(props) {
           )}
         </IconButton>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          4proj
+          <img src="../../../sup.png" width="70" alt=""/>&nbsp;&nbsp;&nbsp;GESTION - ETUDIANT
         </Typography>
         <div className={classes.grow} />
-        <div
-          className={classNames(classes.search, {
-            [classes.searchFocused]: isSearchOpen,
-          })}
-        >
-          <div
-            className={classNames(classes.searchIcon, {
-              [classes.searchIconOpened]: isSearchOpen,
-            })}
-            onClick={() => setSearchOpen(!isSearchOpen)}
-          >
-            <SearchIcon classes={{ root: classes.headerIcon }} />
-          </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-          />
-        </div>
+        <div>{localStorage.getItem('userType')}</div>
         <IconButton
           aria-haspopup="true"
           color="inherit"

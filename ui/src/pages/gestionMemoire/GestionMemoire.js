@@ -117,7 +117,6 @@ export default function GestionMemoire(props) {
 		fetch("http://localhost:8080/oneMemoire/" + id)
 			.then(async response => {
 				const data = await response.json();
-				console.log(data.result);
 				setaSoutenance(data.result.aSoutenance);
 				setEstObligatoire(data.result.estObligatoire);
 				setEstValide(data.result.estValide);

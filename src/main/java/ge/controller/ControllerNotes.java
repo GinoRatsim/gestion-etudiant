@@ -33,6 +33,15 @@ public class ControllerNotes {
 		}
 	}
 	
+	@GetMapping("/getByEtudiantModule/{idEtudiant}/{idModule}")
+	ResponseEntity<Object> getByEtudiantModule(@PathVariable Long idEtudiant, @PathVariable Long idModule) {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repository.getByEtudiantModule(idEtudiant, idModule));
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
 	@GetMapping("/allNotesRattrapage")
 	ResponseEntity<Object> allNotesRattrapage() {
 		try {

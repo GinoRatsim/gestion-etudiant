@@ -30,7 +30,6 @@ export default function ListeEtudiantRattrapage(props) {
 			)
 	}, [])
 	donnee.forEach(function(item, i) {
-		console.log(item.etudiant.actuel)
 		if (item.etudiant.actuel === 1) {
 			datatableData[i] = [
 				item.etudiant.personne.identifiant,

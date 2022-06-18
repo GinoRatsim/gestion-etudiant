@@ -11,7 +11,7 @@ import ge.model.ModelModule;
 @Repository
 public interface RepositoryModule extends JpaRepository<ModelModule, Long> {
 
-	@Query(value = "SELECT * FROM module WHERE id_niveau = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM module WHERE id_niveau = ?", nativeQuery = true)
 	List<ModelModule> findModuleByNiveau(Long id);
 	
 }

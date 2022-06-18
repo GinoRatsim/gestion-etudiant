@@ -33,8 +33,8 @@ public class ControllerModule {
 		}
 	}
 	
-	@GetMapping("/allModuleByNiveau")
-	ResponseEntity<Object> allByNiveau(@PathVariable Long id) {
+	@GetMapping("/allModuleByNiveau/{id}")
+	ResponseEntity<Object> allModuleByNiveau(@PathVariable Long id) {
 		try {
 			return responseHandler.generateResponse(HttpStatus.OK, repository.findModuleByNiveau(id));
 		} catch (Exception e) {

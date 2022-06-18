@@ -26,28 +26,34 @@ var structure = [];
 if (localStorage.getItem('id_token') === "ADMIN") {
   structure = [
     { id: 0, label: "Accueil", link: "/app/dashboard", icon: <Home /> },
-    { id: 1, label: "Gestion des utilisateurs", link: "/app/utilisateur", icon: <Home /> },
-    { id: 2, label: "Gestion des accès", link: "/app/acces", icon: <Home /> },
-    { id: 3, label: "Gestion des niveaux", link: "/app/niveau", icon: <Home /> },
-    { id: 4, label: "Gestion des cours", link: "/app/module", icon: <Home /> },
-    { id: 5, label: "Gestion des spécialités", link: "/app/specialite", icon: <Home /> },
-    { id: 6, label: "Gestion des types de contrat", link: "/app/typeContrat", icon: <Home /> },
-    { id: 7, label: "Gestion des types de formation", link: "/app/typeFormation", icon: <Home /> },
-    { id: 8, label: "Gestion de planification", link: "/app/planificationCours", icon: <Home /> },
-    { id: 9, label: "Gestion des types de partenariat", link: "/app/naturePartenariat", icon: <Home /> },
-    { id: 10, label: "Gestion des partenariats", link: "/app/partenariat", icon: <Home /> },
-    { id: 11, label: "Gestion des groupes", link: "/app/groupe", icon: <Home /> },
-    { id: 12, label: "Gestion des entreprise", link: "/app/entreprise", icon: <Home /> },
-    { id: 13, label: "Gestion des modules & spécialités", link: "/app/modSpec", icon: <Home /> },
-    { id: 14, label: "Gestion des campus", link: "/app/campus", icon: <Home /> },
-    { id: 15, label: "Gestion des étudiants", link: "/app/etudiant", icon: <Home /> },
-    { id: 16, label: "Gestion des contrats", link: "/app/contrat", icon: <Home /> },
-    { id: 17, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
-    { id: 18, label: "Gestion des mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
-    { id: 19, label: "Liste des anciens étudiants", link: "/app/suiviAnciens", icon: <Home /> },
-    { id: 20, label: "Gestion des suivi des absences", link: "/app/suiviAbsences", icon: <Home /> },
+    { id: 1, label: "Utilisateurs", link: "/app/utilisateur", icon: <Home /> },
+    { id: 2, label: "Accès", link: "/app/acces", icon: <Home /> },
+    { id: 3, label: "Niveaux", link: "/app/niveau", icon: <Home /> },
+    { id: 4, label: "Cours", link: "/app/module", icon: <Home /> },
+    { id: 5, label: "Spécialités", link: "/app/specialite", icon: <Home /> },
+    { id: 6, label: "Types de contrat", link: "/app/typeContrat", icon: <Home /> },
+    { id: 7, label: "Types de formation", link: "/app/typeFormation", icon: <Home /> },
+    { id: 8, label: "Planification", link: "/app/planificationCours", icon: <Home /> },
+    { id: 9, label: "Types de partenariat", link: "/app/naturePartenariat", icon: <Home /> },
+    { id: 10, label: "Partenariats", link: "/app/partenariat", icon: <Home /> },
+    { id: 11, label: "Groupes", link: "/app/groupe", icon: <Home /> },
+    { id: 12, label: "Entreprise", link: "/app/entreprise", icon: <Home /> },
+    { id: 13, label: "Modules & spécialités", link: "/app/modSpec", icon: <Home /> },
+    { id: 14, label: "Campus", link: "/app/campus", icon: <Home /> },
+    { id: 15, label: "Etudiants", link: "/app/etudiant", icon: <Home /> },
+    { id: 16, label: "Contrats", link: "/app/contrat", icon: <Home /> },
+    { id: 17, label: "Offres pro", link: "/app/offresPro", icon: <Home /> },
+    { id: 18, label: "Mémoires de fin de cycle", link: "/app/gestionMemoire", icon: <Home /> },
+    { id: 19, label: "Anciens étudiants", link: "/app/suiviAnciens", icon: <Home /> },
+    { id: 20, label: "Suivi des absences", link: "/app/suiviAbsences", icon: <Home /> },
     { id: 21, label: "Suivi comptable", link: "/app/suiviComptable", icon: <Home /> },
     { id: 22, label: "Etudiants admis/recalés", link: "/app/admisRecales", icon: <Home /> },
+    { id: 23, label: "Intervenants", link: "/app/intervenant", icon: <Home /> },
+    { id: 24, label: "Personne & Intervenants", link: "/app/personneIntervenant", icon: <Home /> },
+    { id: 25, label: "Groupe & module", link: "/app/groupeModule", icon: <Home /> },
+    { id: 26, label: "Administratif étudiant", link: "/app/administratifEtudiant", icon: <Home /> },
+    { id: 27, label: "Type SCT", link: "/app/typeSCT", icon: <Home /> },
+    { id: 28, label: "SCT étudiant", link: "/app/sctEtudiant", icon: <Home /> },
   ];
 }
 
@@ -74,6 +80,7 @@ if (localStorage.getItem('id_token') === "P") {
     { id: 5, label: "Gestion des offres pro", link: "/app/offresPro", icon: <Home /> },
     { id: 6, label: "Envoi des mail par promo", link: "/app/envoiMailPromo", icon: <Home /> },
     { id: 7, label: "Gestion des suivi des absences", link: "/app/suiviAbsences", icon: <Home /> },
+    { id: 8, label: "SCT étudiant", link: "/app/sctEtudiant", icon: <Home /> },
   ];
 }
 
@@ -90,7 +97,8 @@ if (localStorage.getItem('id_token') === "E") {
     { id: 2, label: "Liste des offres pro", link: "/app/offresPro", icon: <Home /> },
     { id: 3, label: "Liste des rattrapages", link: "/app/planificationCours", icon: <Home /> },
     { id: 4, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <Home /> },
-    { id: 5, label: "Fiche d'étudiant", link: "/app/ficheEtudiant/" + localStorage.getItem('idPersonne'), icon: <Home /> },
+    { id: 5, label: "Fiche d'étudiant", link: "/app/ficheEtudiant/" + localStorage.getItem('idEtudiant'), icon: <Home /> },
+    { id: 6, label: "Situation comptable", link: "/app/situationComptable", icon: <Home /> },
   ];
 }
 

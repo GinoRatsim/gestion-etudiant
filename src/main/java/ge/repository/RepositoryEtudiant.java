@@ -29,7 +29,7 @@ public interface RepositoryEtudiant extends JpaRepository<ge.model.ModelEtudiant
 	@Query(value = "SELECT specialite.code_specialite, specialite.libelle_specialite, count(*) FROM etudiant JOIN specialite ON specialite.id_specialite = etudiant.id_specialite GROUP BY specialite.id_specialite; ", nativeQuery = true)
 	List<Object> getNombreEtudiantBySpecialite();
 	
-	@Query(value = "SELECT * FROM etudiant WHERE actuel = 1; ", nativeQuery = true)
+	@Query(value = "SELECT etudiant.* FROM etudiant WHERE actuel = 1 AND id_etudiant NOT IN (SELECT id_etudiant FROM anciens);", nativeQuery = true)
 	List<ModelEtudiant> getEtudiantsActuel();
 	
 	//Pour les taux de réussite
@@ -41,5 +41,8 @@ public interface RepositoryEtudiant extends JpaRepository<ge.model.ModelEtudiant
 	
 	@Query(value = "SELECT annee_scolaire.annee, niveau.code_niveau, count(*) FROM etudiant JOIN annee_scolaire ON annee_scolaire.id_annee_scolaire = etudiant.id_annee_scolaire JOIN niveau ON niveau.id_niveau = etudiant.id_niveau WHERE actuel = 1 AND etudiant.id_annee_scolaire=? AND admis = 0 GROUP BY niveau.id_niveau;", nativeQuery = true)
 	List<Object[]> getTotalParNonAdmis(Long id);
+	
+	@Query(value = "SELECT * FROM etudiant WHERE id_personne = ? AND actuel = 1;", nativeQuery = true)
+	ModelEtudiant getByPersonne(Long id);
 	
 }

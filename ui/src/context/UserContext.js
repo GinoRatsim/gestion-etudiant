@@ -72,8 +72,18 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 				localStorage.setItem('id_token', response.data.result.accesModel.codeAcces)
 				localStorage.setItem('userName', response.data.result.user)
 				localStorage.setItem('userType', response.data.result.accesModel.libelleAcces)
-				localStorage.setItem('nomPrenom', response.data.result.personne.prenoms+" "+response.data.result.personne.nom)
+				localStorage.setItem('nomPrenom', response.data.result.personne.prenoms + " " + response.data.result.personne.nom)
 				localStorage.setItem('idPersonne', response.data.result.personne.idPersonne)
+				fetch("http://localhost:8080/getByPersonne/" + response.data.result.personne.idPersonne)
+					.then(res => res.json())
+					.then(
+						(data) => {
+							console.log(data)
+							if (data.result != null) {
+								localStorage.setItem('idEtudiant', data.result.idEtudiant)
+							}
+						}
+					)
 				setError(null)
 				setIsLoading(false)
 				dispatch({ type: 'LOGIN_SUCCESS' })
@@ -98,6 +108,7 @@ function signOut(dispatch, history) {
 	localStorage.removeItem("userType")
 	localStorage.removeItem("nomPrenom")
 	localStorage.removeItem("idPersonne")
+	localStorage.removeItem("idEtudiant")
 	dispatch({ type: "SIGN_OUT_SUCCESS" })
 	history.push("/login")
 }

@@ -44,6 +44,13 @@ import SuiviAnciens from "../../pages/suiviAnciens";
 import SuiviAbsences from "../../pages/suiviAbsences";
 import SuiviComptable from "../../pages/suiviComptable";
 import AdmisRecales from "../../pages/directionAcademique/admisRecales";
+import Intervenant from "../../pages/intervenant";
+import PersonneIntervenant from "../../pages/personneIntervenant";
+import GroupeModule from "../../pages/groupeModule";
+import AdministratifEtudiant from "../../pages/administratifEtudiant";
+import SituationComptable from "../../pages/situationComptable";
+import TypeSct from "../../pages/typeSct";
+import SctEtudiant from "../../pages/sctEtudiant";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -96,6 +103,13 @@ function Layout(props) {
             <Route path="/app/suiviAbsences" component={SuiviAbsences} />
             <Route path="/app/suiviComptable" component={SuiviComptable} />
             <Route path="/app/admisRecales" component={AdmisRecales} />
+            <Route path="/app/intervenant" component={Intervenant} />
+            <Route path="/app/personneIntervenant" component={PersonneIntervenant} />
+            <Route path="/app/groupeModule" component={GroupeModule} />
+            <Route path="/app/administratifEtudiant" component={AdministratifEtudiant} />
+            <Route path="/app/situationComptable" component={SituationComptable} />
+            <Route path="/app/typeSct" component={TypeSct} />
+            <Route path="/app/sctEtudiant" component={SctEtudiant} />
           </Switch>
         </div>
       </>

@@ -1,6 +1,5 @@
 package ge.controller;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +131,15 @@ public class ControllerEtudiant<E> {
 			res[3] = repositoryNotes.findNoteByEtudiant(repositoryEtudiant.findById(id).get().getIdEtudiant());
 
 			return responseHandler.generateResponse(HttpStatus.OK, res);
+		} catch (Exception e) {
+			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/getByPersonne/{id}")
+	ResponseEntity<Object> getByPersonne(@PathVariable Long id) {
+		try {
+			return responseHandler.generateResponse(HttpStatus.OK, repositoryEtudiant.getByPersonne(id));
 		} catch (Exception e) {
 			return responseHandler.generateResponse(HttpStatus.NOT_FOUND, e.getMessage());
 		}

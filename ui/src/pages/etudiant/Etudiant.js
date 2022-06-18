@@ -149,7 +149,7 @@ export default function Etudiant(props) {
 
 	const [donnee, setDonnee] = useState([]);
 	useEffect(() => {
-		fetch("http://localhost:8080/allEtudiant")
+		fetch("http://localhost:8080/allEtudiantActuel")
 			.then(res => res.json())
 			.then(
 				(data) => {
