@@ -11,7 +11,18 @@ import {
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function Etudiant(props) {
 
 	Moment.locale('fr');
@@ -394,27 +405,29 @@ export default function Etudiant(props) {
 					<PageTitle title="Liste des étudiants" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["IDENTIFIANT", "NOM", "PRENOM", "ANNEE SCOLAIRE", "NIVEAU", "FORMATION", "CONTRAT", "SPECIALITE", "CREDIT OBTENUS",
-									{
-										name: "",
-										options: {
-											customBodyRender: (value, tableMeta, updateValue) => {
-												return (
-													<div>
-														<button className='btn btn-success' onClick={() => voirDetail(props.history, value)}>
-															<RemoveRedEye />
-														</button>
-													</div>
-												);
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["IDENTIFIANT", "NOM", "PRENOM", "ANNEE SCOLAIRE", "NIVEAU", "FORMATION", "CONTRAT", "SPECIALITE", "CREDIT OBTENUS",
+										{
+											name: "",
+											options: {
+												customBodyRender: (value, tableMeta, updateValue) => {
+													return (
+														<div>
+															<button className='btn btn-success' onClick={() => voirDetail(props.history, value)}>
+																<RemoveRedEye />
+															</button>
+														</div>
+													);
+												}
 											}
-										}
-									}]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+										}]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

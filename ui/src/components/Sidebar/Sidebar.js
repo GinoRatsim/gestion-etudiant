@@ -61,7 +61,7 @@ if (localStorage.getItem('id_token') === "ADMIN") {
 	structure = [
 		{ id: 0, label: "Accueil", link: "/app/dashboard", icon: <FaHome /> },
 		{ id: 1, label: "Utilisateurs", link: "/app/utilisateur", icon: <FaUsersCog /> },
-		{ id: 2, label: "Accès et mot de passe", link: "/app/acces", icon: <FaSignInAlt /> },
+		{ id: 2, label: "Type d'accès", link: "/app/acces", icon: <FaSignInAlt /> },
 		{ id: 3, label: "Niveaux de formations", link: "/app/niveau", icon: <FaLevelUpAlt /> },
 		{ id: 4, label: "Modules", link: "/app/module", icon: <FaBook /> },
 		{ id: 5, label: "Spécialités", link: "/app/specialite", icon: <FaUserShield /> },
@@ -128,7 +128,7 @@ if (localStorage.getItem('id_token') === "ADM") {
 if (localStorage.getItem('id_token') === "E") {
 	structure = [
 		{ id: 0, label: "Accueil", link: "/app/dashboard", icon: <FaHome /> },
-		{ id: 1, label: "Modules", link: "/app/module", icon: <FaBook /> },
+		{ id: 1, label: "Cours", link: "/app/module", icon: <FaBook /> },
 		{ id: 2, label: "Offres professionnelles", link: "/app/offresPro", icon: <FaFileInvoiceDollar /> },
 		{ id: 3, label: "Cours & Rattrapages", link: "/app/planificationCours", icon: <FaUndoAlt /> },
 		{ id: 4, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <FaChalkboardTeacher /> },

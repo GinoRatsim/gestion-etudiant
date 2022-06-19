@@ -17,7 +17,18 @@ import {
 	Edit,
 	Delete
 } from "@material-ui/icons";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 const customStyles = {
 	content: {
 		top: '25%',
@@ -254,37 +265,39 @@ export default function Partenariat(props) {
 					<PageTitle title="Liste des partenariats" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={[
-									"DATE DEBUT", "DATE FIN", "LIBELLE PARTENARIAT COURTE", "LIBELLE PARTENARIAT LONGUE", "NATURE DU PARTENARIAT",
-									{
-										name: "",
-										options: {
-											customBodyRender: (value, tableMeta, updateValue) => {
-												return (
-													<div>
-														<button className='btn btn-success' onClick={() => voir(value)} >
-															<RemoveRedEye />
-														</button>
-														&nbsp;
-														<button className='btn btn-warning' onClick={() => modifier(value)}>
-															<Edit />
-														</button>
-														&nbsp;
-														<button className='btn btn-danger' onClick={() => supprimer(value)}>
-															<Delete />
-														</button>
-													</div>
-												);
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={[
+										"DATE DEBUT", "DATE FIN", "LIBELLE PARTENARIAT COURTE", "LIBELLE PARTENARIAT LONGUE", "NATURE DU PARTENARIAT",
+										{
+											name: "",
+											options: {
+												customBodyRender: (value, tableMeta, updateValue) => {
+													return (
+														<div>
+															<button className='btn btn-success' onClick={() => voir(value)} >
+																<RemoveRedEye />
+															</button>
+															&nbsp;
+															<button className='btn btn-warning' onClick={() => modifier(value)}>
+																<Edit />
+															</button>
+															&nbsp;
+															<button className='btn btn-danger' onClick={() => supprimer(value)}>
+																<Delete />
+															</button>
+														</div>
+													);
+												}
 											}
 										}
-									}
-								]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+									]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 

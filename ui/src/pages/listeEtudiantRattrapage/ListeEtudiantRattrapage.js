@@ -12,7 +12,18 @@ import {
 
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function ListeEtudiantRattrapage(props) {
 
 	Moment.locale('fr');
@@ -54,29 +65,31 @@ export default function ListeEtudiantRattrapage(props) {
 					<PageTitle title="Liste des étudiants pour les rattrapages" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={[
-									"IDENTIFIANT", "NOM", "PRENOM", "MODULE", "NOTES", "STATUT",
-									{
-										name: "",
-										options: {
-											customBodyRender: (value, tableMeta, updateValue) => {
-												return (
-													<div>
-														<button className='btn btn-success' onClick={() => voirDetail(props.history, value)}>
-															<RemoveRedEye />
-														</button>
-													</div>
-												);
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={[
+										"IDENTIFIANT", "NOM", "PRENOM", "MODULE", "NOTES", "STATUT",
+										{
+											name: "",
+											options: {
+												customBodyRender: (value, tableMeta, updateValue) => {
+													return (
+														<div>
+															<button className='btn btn-success' onClick={() => voirDetail(props.history, value)}>
+																<RemoveRedEye />
+															</button>
+														</div>
+													);
+												}
 											}
 										}
-									}
-								]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+									]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

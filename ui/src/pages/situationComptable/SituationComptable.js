@@ -8,7 +8,18 @@ import {
 
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function SuiviComptable(props) {
 
 	Moment.locale('fr');
@@ -17,7 +28,7 @@ export default function SuiviComptable(props) {
 
 	const [donnee, setDonnee] = useState([]);
 	useEffect(() => {
-		fetch("http://localhost:8080/getComptaByEtudiant/"+localStorage.getItem('idEtudiant'))
+		fetch("http://localhost:8080/getComptaByEtudiant/" + localStorage.getItem('idEtudiant'))
 			.then(res => res.json())
 			.then(
 				(data) => {
@@ -44,13 +55,15 @@ export default function SuiviComptable(props) {
 					<PageTitle title="Suivi comptable" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["IDENTIFIANT", "NOM", "PRENOM", "TYPE", "DUE", "RELANCE", "TOTALEMENT PAYE"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["IDENTIFIANT", "NOM", "PRENOM", "TYPE", "DUE", "RELANCE", "TOTALEMENT PAYE"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

@@ -9,7 +9,18 @@ import {
 import PageTitle from "../../components/PageTitle";
 
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function Specialite(props) {
 	var datatableData = [];
 
@@ -80,13 +91,15 @@ export default function Specialite(props) {
 					<PageTitle title="Liste des spécialités" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["CODE", "LIBELLE"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["CODE", "LIBELLE"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

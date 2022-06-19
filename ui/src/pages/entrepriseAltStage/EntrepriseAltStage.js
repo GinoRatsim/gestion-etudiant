@@ -8,13 +8,24 @@ import {
 
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function EntrepriseAltStage(props) {
 
 	Moment.locale('fr');
 
 	var datatableData = [];
-	
+
 	const [donnee, setDonnee] = useState([]);
 	useEffect(() => {
 		fetch("http://localhost:8080/allContrat")
@@ -36,13 +47,15 @@ export default function EntrepriseAltStage(props) {
 					<PageTitle title="Liste des entreprises accueillants les alternants/stagiaires" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["NOM", "SECTEUR D'ACTIVITE'", "RESPONSABLE", "TELEPHONE", "MAIL", "ADRESSE", "CODE POSTAL", "VILLE"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["NOM", "SECTEUR D'ACTIVITE'", "RESPONSABLE", "TELEPHONE", "MAIL", "ADRESSE", "CODE POSTAL", "VILLE"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

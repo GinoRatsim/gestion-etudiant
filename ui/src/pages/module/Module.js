@@ -9,7 +9,18 @@ import {
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function Module(props) {
 
 	Moment.locale('fr');
@@ -131,13 +142,15 @@ export default function Module(props) {
 					<PageTitle title="Liste des cours" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["CODE", "LIBELLE", "OBLIGATOIRE", "CREDIT REQUIS", "NIVEAU"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["CODE", "LIBELLE", "OBLIGATOIRE", "CREDIT REQUIS", "NIVEAU"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

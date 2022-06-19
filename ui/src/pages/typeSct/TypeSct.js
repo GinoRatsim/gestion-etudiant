@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import MUIDataTable from "mui-datatables";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import {
 	Grid
@@ -9,6 +10,17 @@ import {
 import PageTitle from "../../components/PageTitle";
 
 import axios from 'axios';
+
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 
 export default function TypeSct(props) {
 	var datatableData = [];
@@ -73,13 +85,15 @@ export default function TypeSct(props) {
 					<PageTitle title="Liste des types SCT" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["LIBELLE"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["LIBELLE"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

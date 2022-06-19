@@ -69,26 +69,37 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 			}
 		).then(function(response) {
 			if (response.data.result != null) {
-				localStorage.setItem('id_token', response.data.result.accesModel.codeAcces)
-				localStorage.setItem('userName', response.data.result.user)
-				localStorage.setItem('userType', response.data.result.accesModel.libelleAcces)
-				localStorage.setItem('nomPrenom', response.data.result.personne.prenoms + " " + response.data.result.personne.nom)
-				localStorage.setItem('idPersonne', response.data.result.personne.idPersonne)
 				fetch("http://localhost:8080/getByPersonne/" + response.data.result.personne.idPersonne)
 					.then(res => res.json())
 					.then(
 						(data) => {
-							console.log(data)
 							if (data.result != null) {
 								localStorage.setItem('idEtudiant', data.result.idEtudiant)
+								localStorage.setItem('id_token', response.data.result.accesModel.codeAcces)
+								localStorage.setItem('userName', response.data.result.user)
+								localStorage.setItem('userType', response.data.result.accesModel.libelleAcces)
+								localStorage.setItem('nomPrenom', response.data.result.personne.prenoms + " " + response.data.result.personne.nom)
+								localStorage.setItem('idPersonne', response.data.result.personne.idPersonne)
+								setError(null)
+								setIsLoading(false)
+								dispatch({ type: 'LOGIN_SUCCESS' })
+								history.push('/app/dashboard')
+								window.location.reload(false)
+							}
+							else {
+								localStorage.setItem('id_token', response.data.result.accesModel.codeAcces)
+								localStorage.setItem('userName', response.data.result.user)
+								localStorage.setItem('userType', response.data.result.accesModel.libelleAcces)
+								localStorage.setItem('nomPrenom', response.data.result.personne.prenoms + " " + response.data.result.personne.nom)
+								localStorage.setItem('idPersonne', response.data.result.personne.idPersonne)
+								setError(null)
+								setIsLoading(false)
+								dispatch({ type: 'LOGIN_SUCCESS' })
+								history.push('/app/dashboard')
+								window.location.reload(false)
 							}
 						}
 					)
-				setError(null)
-				setIsLoading(false)
-				dispatch({ type: 'LOGIN_SUCCESS' })
-				history.push('/app/dashboard')
-				window.location.reload(false)
 			} else {
 				//dispatch({ type: "LOGIN_FAILURE" })
 				setError(true)
@@ -103,12 +114,12 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 }
 
 function signOut(dispatch, history) {
+	localStorage.removeItem("idEtudiant")
 	localStorage.removeItem("id_token")
 	localStorage.removeItem("userName")
 	localStorage.removeItem("userType")
 	localStorage.removeItem("nomPrenom")
 	localStorage.removeItem("idPersonne")
-	localStorage.removeItem("idEtudiant")
 	dispatch({ type: "SIGN_OUT_SUCCESS" })
 	history.push("/login")
 }

@@ -9,7 +9,18 @@ import {
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function Contrat(props) {
 
 	Moment.locale('fr');
@@ -59,20 +70,20 @@ export default function Contrat(props) {
 				'http://localhost:8080/addContrat',
 				JSON.stringify(
 					{
-						"entreprise" :{
-							"idEntreprise" : entreprise
+						"entreprise": {
+							"idEntreprise": entreprise
 						},
-						"typeContrat" :{
-							"idTypeContrat" : typeContrat
+						"typeContrat": {
+							"idTypeContrat": typeContrat
 						},
-						"dureeContrat" : dureeContrat,
-						"nomPrenomEncadreur" : nomPrenomEncadreur,
-						"telephoneEncadreur" : telephoneEncadreur,
-						"adresseEmailEncadreur" : adresseEmailEncadreur,
-						"dateDebutContrat" : dateDebutContrat,
-						"dateFinContrat" : dateFinContrat,
-						"fichierContrat" : document.getElementById('fichierContrat').files[0].name,
-						"fichierConvention" : document.getElementById('fichierConvention').files[0].name,
+						"dureeContrat": dureeContrat,
+						"nomPrenomEncadreur": nomPrenomEncadreur,
+						"telephoneEncadreur": telephoneEncadreur,
+						"adresseEmailEncadreur": adresseEmailEncadreur,
+						"dateDebutContrat": dateDebutContrat,
+						"dateFinContrat": dateFinContrat,
+						"fichierContrat": document.getElementById('fichierContrat').files[0].name,
+						"fichierConvention": document.getElementById('fichierConvention').files[0].name,
 					}
 				),
 				{
@@ -97,7 +108,7 @@ export default function Contrat(props) {
 				}
 			)
 	}, [])
-	
+
 	const [listeTypeContrat, setListeTypeContrat] = useState([]);
 	useEffect(() => {
 		fetch("http://localhost:8080/allTypeContrat")
@@ -177,13 +188,15 @@ export default function Contrat(props) {
 					<PageTitle title="Liste des contrats" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["ENTREPRISE", "NOM DE L'ENCADREUR", "MAIL DE L'ENCADREUR", "TELEPHONE DE L'ENCADREUR", "VALIDITE", "DUREE DU CONTRAT", "TYPE DE CONTRAT", "CONTRAT", "CONVENTION"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["ENTREPRISE", "NOM DE L'ENCADREUR", "MAIL DE L'ENCADREUR", "TELEPHONE DE L'ENCADREUR", "VALIDITE", "DUREE DU CONTRAT", "TYPE DE CONTRAT", "CONTRAT", "CONVENTION"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

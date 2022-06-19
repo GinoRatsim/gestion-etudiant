@@ -14,7 +14,18 @@ import {
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function GestionMemoire(props) {
 
 	Moment.locale('fr');
@@ -191,33 +202,35 @@ export default function GestionMemoire(props) {
 					<PageTitle title="Liste des mémoires de fin de cycle" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={[
-									"SOUTENANCE", "OBLIGATOIRE", "STATUT", "NOTES RAPPORT", "NOTE SOUTENANCE", "CONTRAT", "ENTREPRISE",
-									{
-										name: "MEMOIRE",
-										options: {
-											customBodyRender: (value, tableMeta, updateValue) => {
-												return (
-													<div>
-														<button className='btn btn-warning' onClick={() => modifier(value)}>
-															<Edit />
-														</button>
-														&nbsp;
-														<button className='btn btn-danger' onClick={() => supprimer(value)}>
-															<Delete />
-														</button>
-													</div>
-												);
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={[
+										"SOUTENANCE", "OBLIGATOIRE", "STATUT", "NOTES RAPPORT", "NOTE SOUTENANCE", "CONTRAT", "ENTREPRISE",
+										{
+											name: "MEMOIRE",
+											options: {
+												customBodyRender: (value, tableMeta, updateValue) => {
+													return (
+														<div>
+															<button className='btn btn-warning' onClick={() => modifier(value)}>
+																<Edit />
+															</button>
+															&nbsp;
+															<button className='btn btn-danger' onClick={() => supprimer(value)}>
+																<Delete />
+															</button>
+														</div>
+													);
+												}
 											}
 										}
-									}
-								]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+									]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

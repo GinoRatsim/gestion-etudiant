@@ -8,7 +8,18 @@ import {
 
 import PageTitle from "../../../components/PageTitle/PageTitle";
 import Moment from 'moment';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function ListeCoursIntervenants(props) {
 
 	Moment.locale('fr');
@@ -26,7 +37,7 @@ export default function ListeCoursIntervenants(props) {
 			)
 	}, [])
 	donnee.forEach(function(item, i) {
-		datatableData[i] = [item.module.niveau.libelleNiveau, item.module.libelleModule, item.campus.libelleCampus, item.personneIntervenant.personne.prenoms+" "+item.personneIntervenant.personne.nom, item.personneIntervenant.intervenant.libelleIntervenant]
+		datatableData[i] = [item.module.niveau.libelleNiveau, item.module.libelleModule, item.campus.libelleCampus, item.personneIntervenant.personne.prenoms + " " + item.personneIntervenant.personne.nom, item.personneIntervenant.intervenant.libelleIntervenant]
 	});
 
 	return (
@@ -36,15 +47,17 @@ export default function ListeCoursIntervenants(props) {
 					<PageTitle title="Liste des cours et intervenants" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={[
-									"NIVEAU", "COURS", "CAMPUS", "PROFESSEUR", "INTERVENANT"
-								]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={[
+										"NIVEAU", "COURS", "CAMPUS", "PROFESSEUR", "INTERVENANT"
+									]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

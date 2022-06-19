@@ -9,7 +9,18 @@ import {
 import PageTitle from "../../components/PageTitle";
 
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function GroupeModule(props) {
 	var datatableData = [];
 
@@ -137,7 +148,7 @@ export default function GroupeModule(props) {
 								<select className='form-control' ref={moduleARef} onChange={(e) => setModuleA(e.target.value)} value={moduleA}>
 									<option>--</option>
 									{listeModule.map(res => (
-										<option key={res.idModule} value={res.idModule}>{res.libelleModule}</option>
+										<option key={res.idModule} value={res.idModule}>{res.niveau.codeNiveau} - {res.libelleModule}</option>
 									))}
 								</select>
 							</div>
@@ -171,13 +182,15 @@ export default function GroupeModule(props) {
 					<PageTitle title="Liste des groupes & modules" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["NOM GROUPE", "CAMPUS", "MODULE", "NIVEAU", "ETUDIANT"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["NOM GROUPE", "CAMPUS", "MODULE", "NIVEAU", "ETUDIANT"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

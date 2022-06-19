@@ -9,7 +9,18 @@ import {
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Moment from 'moment';
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function SuiviAbsences(props) {
 
 	Moment.locale('fr');
@@ -129,13 +140,15 @@ export default function SuiviAbsences(props) {
 					<PageTitle title="Liste des absences" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["IDENTIFIANT", "NOM", "PRENOM", "DATE DE DEBUT", "DATE DE FIN", "JUSTIFIE"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["IDENTIFIANT", "NOM", "PRENOM", "DATE DE DEBUT", "DATE DE FIN", "JUSTIFIE"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

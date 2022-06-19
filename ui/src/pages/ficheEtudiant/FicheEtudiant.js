@@ -219,6 +219,8 @@ export default function FicheEtudiant(props) {
 				(data) => {
 					if (data.result === null) {
 						document.getElementById('btn-ajout').innerText = "Ajouter";
+						setIdNote("");
+						setNotesAdd("");
 					} else {
 						setIdNote(data.result.idNotes);
 						setNotesAdd(data.result.notes);

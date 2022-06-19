@@ -10,7 +10,18 @@ import PageTitle from "../../components/PageTitle";
 
 import axios from 'axios';
 import Moment from 'moment';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function AdministratifEtudiant(props) {
 	var datatableData = [];
 	Moment.locale('fr');
@@ -26,7 +37,14 @@ export default function AdministratifEtudiant(props) {
 	}, [])
 
 	donnee.forEach(function(item, i) {
-		datatableData[i] = [Moment(item.anneeEntree).format('DD/MM/yyyy'), Moment(item.anneeSortie).format('DD/MM/yyyy'), item.niveauEntree, item.niveauSortie, item.personne.prenoms + " " + item.personne.nom]
+		datatableData[i] = [
+			item.personne.identifiant,
+			item.personne.prenoms + " " + item.personne.nom,
+			Moment(item.anneeEntree).format('DD/MM/yyyy'),
+			Moment(item.anneeSortie).format('DD/MM/yyyy'),
+			item.niveauEntree, item.niveauSortie,
+			item.personne.prenoms + " " + item.personne.nom
+		]
 	});
 
 	const anneeEntreeRef = useRef();
@@ -95,7 +113,7 @@ export default function AdministratifEtudiant(props) {
 		<>
 			{localStorage.getItem('id_token') === "ADMIN" ? (
 				<div>
-					<PageTitle title="Ajouter un type d'accès" />
+					<PageTitle title="Ajouter un administratif étudiant" />
 					<form onSubmit={add}>
 						<div className='row ajout-type-acces'>
 							<div className='col-sm-12'>
@@ -143,16 +161,18 @@ export default function AdministratifEtudiant(props) {
 						</div>
 					</form>
 					<br />
-					<PageTitle title="Liste des types d'accès des utilisateurs" />
+					<PageTitle title="Liste des administratifs étudiants" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["ANNEE ENTREE", "ANNEE SORTIE", "NIVEAU ENTREE", "NIVEAU SORTIE"]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["IDENTIFIANT", "ETUDIANT", "ANNEE ENTREE", "ANNEE SORTIE", "NIVEAU ENTREE", "NIVEAU SORTIE"]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>

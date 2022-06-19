@@ -14,7 +14,18 @@ import {
 import PageTitle from "../../components/PageTitle";
 
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function SctEtudiant(props) {
 	var datatableData = [];
 
@@ -216,32 +227,34 @@ export default function SctEtudiant(props) {
 							<PageTitle title="Liste des SCT étudiants" />
 							<Grid container spacing={4}>
 								<Grid item xs={12}>
-									<MUIDataTable
-										data={datatableData}
-										columns={["IDENTIFIANT", "ETUDIANT", "ANNEE SCOLAIRE", "CERTIFICATION VALIDE", "TYPE SCT",
-											{
-												name: "",
-												options: {
-													customBodyRender: (value, tableMeta, updateValue) => {
-														return (
-															<div>
-																<button className='btn btn-warning' onClick={() => modifier(value)}>
-																	<Edit />
-																</button>
-																&nbsp;
-																<button className='btn btn-danger' onClick={() => supprimer(value)}>
-																	<Delete />
-																</button>
-															</div>
-														);
+									<MuiThemeProvider theme={getMuiTheme()}>
+										<MUIDataTable
+											data={datatableData}
+											columns={["IDENTIFIANT", "ETUDIANT", "ANNEE SCOLAIRE", "CERTIFICATION VALIDE", "TYPE SCT",
+												{
+													name: "",
+													options: {
+														customBodyRender: (value, tableMeta, updateValue) => {
+															return (
+																<div>
+																	<button className='btn btn-warning' onClick={() => modifier(value)}>
+																		<Edit />
+																	</button>
+																	&nbsp;
+																	<button className='btn btn-danger' onClick={() => supprimer(value)}>
+																		<Delete />
+																	</button>
+																</div>
+															);
+														}
 													}
 												}
-											}
-										]}
-										options={{
-											selectableRows: 'none'
-										}}
-									/>
+											]}
+											options={{
+												selectableRows: 'none'
+											}}
+										/>
+									</MuiThemeProvider>
 								</Grid>
 							</Grid>
 						</div>
@@ -250,32 +263,15 @@ export default function SctEtudiant(props) {
 							<PageTitle title="Liste des SCT étudiants" />
 							<Grid container spacing={4}>
 								<Grid item xs={12}>
-									<MUIDataTable
-										data={datatableData}
-										columns={["IDENTIFIANT", "ETUDIANT", "ANNEE SCOLAIRE", "CERTIFICATION VALIDE", "TYPE SCT",
-											{
-												name: "",
-												options: {
-													customBodyRender: (value, tableMeta, updateValue) => {
-														return (
-															<div>
-																<button className='btn btn-warning' onClick={() => modifier(value)}>
-																	<Edit />
-																</button>
-																&nbsp;
-																<button className='btn btn-danger' onClick={() => supprimer(value)}>
-																	<Delete />
-																</button>
-															</div>
-														);
-													}
-												}
-											}
-										]}
-										options={{
-											selectableRows: 'none'
-										}}
-									/>
+									<MuiThemeProvider theme={getMuiTheme()}>
+										<MUIDataTable
+											data={datatableData}
+											columns={["IDENTIFIANT", "ETUDIANT", "ANNEE SCOLAIRE", "CERTIFICATION VALIDE", "TYPE SCT"]}
+											options={{
+												selectableRows: 'none'
+											}}
+										/>
+									</MuiThemeProvider>
 								</Grid>
 							</Grid>
 						</div>

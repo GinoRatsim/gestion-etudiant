@@ -15,7 +15,18 @@ import PageTitle from "../../components/PageTitle";
 
 import Moment from 'moment';
 import axios from 'axios';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function PlanificationCours(props) {
 	Moment.locale('fr');
 	var datatableData = [];
@@ -158,7 +169,7 @@ export default function PlanificationCours(props) {
 				<div>
 					{localStorage.getItem('id_token') === "ADMIN" || localStorage.getItem('id_token') === "P" ? (
 						<div>
-							<PageTitle title="Ajouter une planification" />
+							<PageTitle title="Planifier" />
 							<form onSubmit={add}>
 								<div className='row ajout-type-acces'>
 									<div className='col-sm-2'>
@@ -203,51 +214,55 @@ export default function PlanificationCours(props) {
 							</form>
 							<br />
 
-							<PageTitle title="Liste des planification" />
+							<PageTitle title="Liste des planing" />
 							<Grid container spacing={4}>
 								<Grid item xs={12}>
-									<MUIDataTable
-										data={datatableData}
-										columns={[
-											"DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE",
-											{
-												name: "",
-												options: {
-													customBodyRender: (value, tableMeta, updateValue) => {
-														return (
-															<div>
-																<button className='btn btn-warning' onClick={() => modifier(value)}>
-																	<Edit />
-																</button>
-																&nbsp;
-																<button className='btn btn-danger' onClick={() => supprimer(value)}>
-																	<Delete />
-																</button>
-															</div>
-														);
+									<MuiThemeProvider theme={getMuiTheme()}>
+										<MUIDataTable
+											data={datatableData}
+											columns={[
+												"DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE",
+												{
+													name: "",
+													options: {
+														customBodyRender: (value, tableMeta, updateValue) => {
+															return (
+																<div>
+																	<button className='btn btn-warning' onClick={() => modifier(value)}>
+																		<Edit />
+																	</button>
+																	&nbsp;
+																	<button className='btn btn-danger' onClick={() => supprimer(value)}>
+																		<Delete />
+																	</button>
+																</div>
+															);
+														}
 													}
 												}
-											}
-										]}
-										options={{
-											selectableRows: 'none'
-										}}
-									/>
+											]}
+											options={{
+												selectableRows: 'none'
+											}}
+										/>
+									</MuiThemeProvider>
 								</Grid>
 							</Grid>
 						</div>
 					) : (
 						<div>
-							<PageTitle title="Liste des planification" />
+							<PageTitle title="Liste des planing" />
 							<Grid container spacing={4}>
 								<Grid item xs={12}>
-									<MUIDataTable
-										data={datatableData}
-										columns={["DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE"]}
-										options={{
-											selectableRows: 'none'
-										}}
-									/>
+									<MuiThemeProvider theme={getMuiTheme()}>
+										<MUIDataTable
+											data={datatableData}
+											columns={["DATE & HEURE DEBUT", "DATE & HEURE FIN", "CONFIRME", "MODULE", "TYPE"]}
+											options={{
+												selectableRows: 'none'
+											}}
+										/>
+									</MuiThemeProvider>
 								</Grid>
 							</Grid>
 						</div>

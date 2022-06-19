@@ -12,7 +12,18 @@ import Moment from 'moment';
 import {
 	Send
 } from "@material-ui/icons";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const getMuiTheme = () => createMuiTheme({
+	overrides: {
+		MuiTableCell: {
+			head: {
+				backgroundColor: "rgba(211, 211, 211, 0.5) !important",
+				
+			}
+		}
+	}
+});
 export default function EnvoiMailPromo(props) {
 
 	Moment.locale('fr');
@@ -62,28 +73,30 @@ export default function EnvoiMailPromo(props) {
 					<PageTitle title="Liste des promos" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<MUIDataTable
-								data={datatableData}
-								columns={["CODE", "LIBELLE",
-									{
-										name: "",
-										options: {
-											customBodyRender: (value, tableMeta, updateValue) => {
-												return (
-													<div>
-														<button id='envoi' className='btn btn-danger' onClick={() => envoiMail(value)}>
-															<Send />
-														</button>
-													</div>
-												);
+							<MuiThemeProvider theme={getMuiTheme()}>
+								<MUIDataTable
+									data={datatableData}
+									columns={["CODE", "LIBELLE",
+										{
+											name: "ENVOI DE MAIL",
+											options: {
+												customBodyRender: (value, tableMeta, updateValue) => {
+													return (
+														<div>
+															<button id='envoi' className='btn btn-danger' onClick={() => envoiMail(value)}>
+																<Send />
+															</button>
+														</div>
+													);
+												}
 											}
 										}
-									}
-								]}
-								options={{
-									selectableRows: 'none'
-								}}
-							/>
+									]}
+									options={{
+										selectableRows: 'none'
+									}}
+								/>
+							</MuiThemeProvider>
 						</Grid>
 					</Grid>
 				</div>
