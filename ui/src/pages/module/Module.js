@@ -96,7 +96,7 @@ export default function Module(props) {
 				<div>
 					{localStorage.getItem('id_token') === "ADMIN" ? (
 						<div>
-							<PageTitle title="Ajouter un cours" />
+							<PageTitle title="Ajouter une module" />
 							<form onSubmit={add}>
 								<div className='row ajout-type-acces'>
 									<div className='col-sm-2'>
@@ -139,7 +139,7 @@ export default function Module(props) {
 						<div></div>
 					)}
 					<br />
-					<PageTitle title="Liste des cours" />
+					<PageTitle title="Liste des modules" />
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
 							<MuiThemeProvider theme={getMuiTheme()}>

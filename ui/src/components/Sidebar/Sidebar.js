@@ -107,7 +107,7 @@ if (localStorage.getItem('id_token') === "DA") {
 if (localStorage.getItem('id_token') === "P") {
 	structure = [
 		{ id: 0, label: "Accueil", link: "/app/dashboard", icon: <FaHome /> },
-		{ id: 1, label: "Planning de cours", link: "/app/planificationCours", icon: <FaCalendarAlt /> },
+		{ id: 1, label: "Planning", link: "/app/planificationCours", icon: <FaCalendarAlt /> },
 		{ id: 2, label: "Etudiants", link: "/app/listeEtudiant", icon: <FaUserPlus /> },
 		{ id: 3, label: "Rattrapages", link: "/app/listeEtudiantRattrapage", icon: <FaUndoAlt /> },
 		{ id: 4, label: "Alternance/stage", link: "/app/entrepriseAltStage", icon: <FaSuitcase /> },
@@ -128,7 +128,7 @@ if (localStorage.getItem('id_token') === "ADM") {
 if (localStorage.getItem('id_token') === "E") {
 	structure = [
 		{ id: 0, label: "Accueil", link: "/app/dashboard", icon: <FaHome /> },
-		{ id: 1, label: "Cours", link: "/app/module", icon: <FaBook /> },
+		{ id: 1, label: "Modules", link: "/app/module", icon: <FaBook /> },
 		{ id: 2, label: "Offres professionnelles", link: "/app/offresPro", icon: <FaFileInvoiceDollar /> },
 		{ id: 3, label: "Cours & Rattrapages", link: "/app/planificationCours", icon: <FaUndoAlt /> },
 		{ id: 4, label: "Liste des cours & intervenants", link: "/app/listeCoursIntervenants", icon: <FaChalkboardTeacher /> },
